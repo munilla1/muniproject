@@ -5,6 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
+<<<<<<< HEAD
 		<version>3.4.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
@@ -12,6 +13,15 @@
 	<artifactId>paginaDinamica</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>paginaDinamica</name>
+=======
+		<version>3.5.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com</groupId>
+	<artifactId>muniproject</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>muniproject</name>
+>>>>>>> 16b6dcd (Primer commit)
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -30,6 +40,7 @@
 		<java.version>21</java.version>
 	</properties>
 	<dependencies>
+<<<<<<< HEAD
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -135,6 +146,20 @@
 	</dependencies>
 
 
+=======
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+>>>>>>> 16b6dcd (Primer commit)
 	<build>
 		<plugins>
 			<plugin>
