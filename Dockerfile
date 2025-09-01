@@ -19,5 +19,5 @@ ENV SPRING_PROFILES_ACTIVE=prod
 EXPOSE 8080
 
 # Arrancar la app con el perfil definido
-ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
