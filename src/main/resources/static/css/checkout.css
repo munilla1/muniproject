@@ -1,0 +1,89 @@
+body {
+    background: #121212;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 500px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
+    border: 2px solid #ffa500;
+}
+
+h1 {
+    color: #ffa500;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+input, select {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ffa500;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 15px;
+    display: block;
+    margin: 8px auto;
+}
+
+#card-element {
+    background-color:gray;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #ffa500;
+    box-shadow: 0 4px 8px rgba(255, 165, 0, 0.3);
+    width: 90%;
+    margin: auto;
+}
+
+#card-errors {
+    color: #ff3333;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.custom-button {
+    background: linear-gradient(135deg, #ff8c00, #ffa500);
+    border: none;
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+    width: 92%;
+    display: block;
+    margin: 20px auto;
+    box-shadow: 0 3px 6px rgba(255, 140, 0, 0.4);
+}
+
+.custom-button:hover {
+    background: linear-gradient(135deg, #ff6600, #ff8c00);
+    transform: scale(1.05);
+}
+
+.custom-button:active {
+    transform: scale(0.95);
+}
+
+

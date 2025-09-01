@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Destruction App - Perfil</title>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/pp.css}">
+    <link rel="stylesheet" th:href="@{/css/cssgrid.css}">
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/perfil/productos-comprados")
+            .then(response => response.json())
+            .then(productos => {
+                let lista = document.getElementById("productosComprados");
+
+                if (!Array.isArray(productos) || productos.length === 0) {
+                    lista.innerHTML = "<li>No has comprado ningún producto aún.</li>";
+                } else {
+                    lista.innerHTML = productos.map(producto =>
+                        `<li>${producto.nombre} - ${producto.precio}€</li>`
+                    ).join("");
+                }
+            })
+            .catch(error => console.error("Error al cargar los productos:", error));
+    });
+</script>
+
+<header class="contenedor">
+    <img th:src="@{/imagenes/mus.png}" alt="Logo" class="logo">
+    <nav class="menu" th:if="${#authorization.expression('isAuthenticated()')}">
+        <ul>
+            <li><a th:href="@{/pagPrincipalJuego}">Inicio</a></li>
+            <li><a th:href="@{/infografias}">Infografías</a></li>
+            <li>|</li>
+            <li><a th:href="@{/perfil}">Perfil</a></li>
+        </ul>
+    </nav>
+    <div class="contcerrarsesion" th:if="${#authorization.expression('isAuthenticated()')}">
+        <div class="contMensaje">
+            <p>Usuario: <span class="usu" th:text="${#authentication.principal.username}">Nombre de usuario</span></p>
+        </div>
+        <div class="contDdboton">
+            <form th:action="@{/logout}" method="POST">
+                <button type="submit" id="ddboton2" class="btn btn-primary">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<div class="contenedor-perfil" th:if="${#authorization.expression('isAuthenticated()')}">
+    <div class="productos-comprados">
+        <h1>Bienvenido a tu perfil</h1>
+        <h2>Productos comprados:</h2>
+        <ul id="productosComprados">
+            <li th:if="${productosComprados == null or productosComprados.empty}" class="empty-message">
+                No has comprado ningún producto aún.
+            </li>
+            <li th:each="producto : ${productosComprados}">
+                <span th:text="${producto.nombre}"></span>
+                <span th:text="${producto.precio} + '€'"></span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="formularios-contenedor">
+        <!-- Modificar Usuario -->
+        <div class="formularios">
+            <div class="form">
+                <h1><b>Modificar Usuario</b></h1>
+                <div th:if="${mensaje != null}" class="alert alert-success alert-pequeno">
+                    <p th:text="${mensaje}"></p>
+                </div>
+                <form th:action="@{/modificar}" method="POST">
+                    <label for="username">Nuevo Nombre de Usuario:</label>
+                    <input type="text" id="username" name="username" class="etivertical" required>
+                    <label for="correo">Nuevo Correo:</label>
+                    <input type="text" id="correo" name="correo" class="etivertical" required>
+                    <label for="password">Nueva Contraseña:</label>
+                    <input type="password" id="password" name="password" class="etipass" required>
+                    <button class="botonRegistrarse" type="submit" id="enviar">Actualizar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Eliminar Usuario -->
+        <div class="formularios">
+            <div class="form">
+                <h1><b>Eliminar Usuario</b></h1>
+                <div th:if="${error != null}">
+                    <p style="color: red;" th:text="${error}"></p>
+                </div>
+                <div th:if="${mensajeEliminacion != null}" class="alert alert-success alert-pequeno">
+                    <p th:text="${mensajeEliminacion}"></p>
+                </div>
+                <form th:action="@{/eliminar}" method="POST">
+                    <label for="username">Nombre de usuario:</label>
+                    <input type="text" id="username" name="username" class="etivertical" required>
+                    <label for="contrasenaIngresada">Contraseña:</label>
+                    <input type="password" id="contrasenaIngresada" name="contrasenaIngresada" class="etipass" required>
+                    <button class="botonEliminar" type="submit" id="enviar">Eliminar usuario</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<video class="video-container" id="video-bg" muted autoplay loop>
+    <source th:src="@{/imagenes/espacio.mp4}" type="video/mp4">
+</video>
+
+<div class="pie-pagina">
+    <h3 class="pie">Esta es una web creada por A.Munilla. 2023-2024</h3>
+</div>
+
+</body>
+</html>

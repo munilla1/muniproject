@@ -1,0 +1,184 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 15px; /* Menos espacio para un diseño más compacto */
+    flex-wrap: wrap;
+}
+
+.logo {
+    width: 240px; /* Reducción del tamaño de la imagen */
+    height: auto;
+    margin-left: 55px;
+}
+
+.menu {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.menu ul li {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 22px; /* Reducción de tamaño */
+    padding: 6px 20px;
+    transition: background 0.3s ease;
+}
+
+.menu ul li a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+.contcerrarsesion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #444;
+    padding: 0px 10px; /* Contenedor más pequeño y alargado */
+    border-radius: 15px;
+    color: white;
+}
+
+.contMensaje {
+    margin-right: 8px;
+    font-size: 15px; /* Texto más pequeño */
+}
+
+.contDdboton button {
+    background-color: #fcc85c;
+    color: black;
+    border: none;
+    padding: 0px 15px; /* Botón más compacto */
+    border-radius: 12px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.contDdboton button:hover {
+    background-color: #cc4444;
+}
+
+/* 🔹 Diseño responsive */
+@media screen and (max-width: 768px) {
+    .contenedor {
+        flex-direction: column; /* Coloca los elementos en una columna */
+        align-items: center;
+    }
+
+    .menu ul {
+        flex-direction: column; /* Apila los elementos verticalmente */
+        align-items: center;
+        gap: 10px;
+    }
+
+    .menu ul li a {
+        font-size: 16px;
+        padding: 8px 12px;
+    }
+
+    .logo {
+        width: 120px; /* Reduce el tamaño del logo en pantallas pequeñas */
+    }
+}
+
+.bienv {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 290px;
+    width: 350px;
+    margin: auto;
+}
+
+li {
+    color: white; /* 🔹 Cambia el color del texto a blanco */
+}
+
+/*----------------------------------------- sidebar ----------------------------------*/
+
+        
+.sidebar {
+    position: fixed;
+    right: 80px;
+    top: 150px; /* 🔹 Ajustado más abajo */
+    width: 640px;
+    height: 530px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 2px solid #ffa500;
+    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
+    padding: 15px;
+    overflow-y: auto;
+    color: white;
+    scrollbar-width: thin; /* 🔹 Scroll compacto */
+}
+
+.sinfo {
+	position: fixed;
+    left: 70px;
+}
+
+.LCA{
+	font-weight: bold;
+}
+
+.imagemus{
+	width: 200px;
+}
+
+.icono-red {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.contacto p {
+	padding-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contacto a img {
+    margin-left: auto;
+}
+
+
+/* Scroll estilizado */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #ffa500;
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}

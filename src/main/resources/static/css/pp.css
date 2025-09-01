@@ -1,0 +1,147 @@
+
+
+.imgPrincipal {
+	width: 100vw;
+	height: 100vh;
+	border-radius: none;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 35px;
+}
+
+.alert-pequeno {
+	height: 80px;
+    max-width: 300px; /* Ancho máximo del cuadro */
+    margin: 10px auto; /* Centramos el cuadro y ajustamos el margen */
+    padding: 8px 12px; /* Espaciado interno más pequeño */
+    font-size: 14px; /* Texto más pequeño */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+    background-color: #d4edda; /* Color de fondo de éxito */
+    border: 1px solid #c3e6cb; /* Borde más sutil */
+    color: #155724; /* Color del texto */
+    text-align: center; /* Centrar el texto */
+}
+
+/*--------------------------------------- cartas infografias------------------------------------*/
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+.card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+.card {
+    background: #fbbd3c;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 600px;
+    box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4); /* Sombra naranja */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
+}
+
+.card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 25px rgba(230, 126, 34, 0.6); /* Mayor intensidad en el hover */
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 3px solid rgba(230, 126, 34, 0.3); /* Línea naranja */
+}
+
+.card-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.card h2 {
+    color: #e67e22; /* Texto en naranja */
+    margin: 10px 0;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.card p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.cartas {
+	padding-bottom: 30px;
+}
+
+.custom-button {
+    background: linear-gradient(135deg, #fbbd3c, #d35400);
+    border: none;
+    padding: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    margin: 20px auto; /* Centra el botón */
+    width: 320px; /* Misma anchura que la primera carta */
+    box-shadow: 0 10px 25px rgba(230, 126, 34, 0.6);
+}
+
+/* Ajuste responsivo */
+@media (max-width: 768px) {
+    .custom-button {
+        width: 90%; /* Se adapta en pantallas más pequeñas */
+    }
+}
+
+.custom-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(230, 126, 34, 0.5);
+    background: linear-gradient(135deg, #d35400, #b03a2e); /* Más cálido en el hover */
+}
+
+.custom-button-pack {
+    background: linear-gradient(135deg, #3498db, #2ecc71);
+    border: none;
+    padding: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    margin: 20px auto; /* Centra el botón */
+    width: 320px; /* Misma anchura que la primera carta */
+    box-shadow: 0 10px 25px rgba(52, 152, 219, 0.6);
+}
+
+/* Ajuste responsivo */
+@media (max-width: 768px) {
+    .custom-button-pack {
+        width: 90%; /* Se adapta en pantallas más pequeñas */
+    }
+}
+
+.custom-button-pack:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(46, 204, 113, 0.5);
+    background: linear-gradient(135deg, #2ecc71, #27ae60); /* Más fresco en el hover */
+}
+
+
+
+
+

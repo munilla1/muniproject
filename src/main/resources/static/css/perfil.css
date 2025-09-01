@@ -1,0 +1,140 @@
+
+
+/* 🌟 Contenedor que alinea todo */
+.contenedor-perfil {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+/* 🌟 Contenedor de la sección */
+.productos-comprados {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 550px;
+    opacity: 0.8;
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+/* 🎯 Estilo para los títulos */
+.productos-comprados h1 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.productos-comprados h2 {
+    font-size: 20px;
+    color: #34495e;
+    margin-bottom: 15px;
+}
+
+/* 📋 Estilo para la lista */
+.productos-comprados ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.productos-comprados li {
+    background: #000040;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 📌 Texto del producto */
+.productos-comprados span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* 💲 Precio del producto */
+.productos-comprados span:last-child {
+    font-size: 16px;
+    color: #007bff;
+}
+
+
+/* 🎯 Contenedor para los formularios */
+.formularios-contenedor {
+    display: flex;
+    gap: 20px;
+    margin-right: 200px;
+}
+
+/* 📝 Manteniendo el estilo original del formulario */
+.formularios {
+    padding-top: 20px;
+}
+
+.form {
+    box-shadow: 0px 4px 8px #fbf2e7;
+    background: #fbf2e7;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    opacity: 0.8;
+}
+
+.form h1 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #000000;
+}
+
+.form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form input[type="text"], 
+.form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button.botonRegistrarse {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button.botonRegistrarse:hover {
+    background-color: #0056b3;
+}
+
+button.botonEliminar {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff8080;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button.botonEliminar:hover {
+    background-color: #0056b3;
+}
