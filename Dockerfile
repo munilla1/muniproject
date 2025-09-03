@@ -10,7 +10,7 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copiar el jar construido
-COPY --from=build /app/target/paginaDinamica-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/muniproject-0.0.1-SNAPSHOT.jar app.jar
 
 # Definir el perfil por defecto (puedes cambiarlo en docker run o docker-compose)
 ENV SPRING_PROFILES_ACTIVE=prod
