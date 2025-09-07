@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(path="api")
+@RequestMapping
 public class AuthController {
 
     private final UsuarioService usuarioService;
