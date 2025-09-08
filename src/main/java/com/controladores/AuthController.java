@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,31 @@ public class AuthController {
     @Autowired
     public AuthController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
+    }
+    
+    @Value("${PGHOST}")
+    private String host;
+
+    @Value("${PGPORT}")
+    private String port;
+
+    @Value("${PGDATABASE}")
+    private String database;
+
+    @Value("${PGUSER}")
+    private String username;
+
+    @Value("${PGPASSWORD}")
+    private String password;
+
+    public String getJdbcUrl() {
+        return "jdbc:postgresql://" + host + ":" + port + "/" + database;
+    }
+
+    public void imprimirDatos() {
+        System.out.println("URL: " + getJdbcUrl());
+        System.out.println("Usuario: " + username);
+        System.out.println("Contraseña: " + password);
     }
 
     @GetMapping("/")
