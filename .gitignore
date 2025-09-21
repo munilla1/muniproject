@@ -47,4 +47,4 @@ dist/
 .DS_Store
 Thumbs.db
 
-.env
+entorno.env
