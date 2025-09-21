@@ -48,3 +48,4 @@ dist/
 Thumbs.db
 
 entorno.env
+/target
