@@ -16,8 +16,8 @@ COPY --from=build /app/target/muniproject-0.0.1-SNAPSHOT.jar app.jar
 ENV SPRING_PROFILES_ACTIVE=prod
 
 # Exponer el puerto
-EXPOSE 443
+EXPOSE 8080
 
 # Arrancar la app con el perfil definido
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Xmx512m", "-Xms256m", "-jar", "app.jar"]
 
