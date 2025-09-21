@@ -47,7 +47,7 @@ public class AuthController {
 	 * + password); }
 	 */
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String home() {
         return "redirect:/registro-login";
     }
