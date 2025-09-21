@@ -34,6 +34,8 @@ public class MuniprojectApplication extends SpringBootServletInitializer {
         System.setProperty("PGUSER", dotenv.get("PGUSER", System.getenv("PGUSER")));
         System.setProperty("POSTGRES_PASSWORD", dotenv.get("POSTGRES_PASSWORD", System.getenv("POSTGRES_PASSWORD")));
 
+        System.out.println("🔍 Puerto asignado por Railway (PORT): " + System.getenv("PORT"));
+        
         SpringApplication.run(MuniprojectApplication.class, args);
         System.out.println("🚀 Aplicación Spring Boot iniciada en http://localhost:8080/");
     }
