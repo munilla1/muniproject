@@ -15,9 +15,6 @@ COPY --from=build /app/target/muniproject-0.0.1-SNAPSHOT.jar app.jar
 # Definir el perfil por defecto (puedes cambiarlo en docker run o docker-compose)
 ENV SPRING_PROFILES_ACTIVE=prod
 
-# Exponer el puerto
-EXPOSE 8080
-
 # Arrancar la app con el perfil definido
-ENTRYPOINT ["java", "-Xmx512m", "-Xms256m", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--server.port=12345"]
 
