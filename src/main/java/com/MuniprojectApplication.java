@@ -44,12 +44,13 @@ public class MuniprojectApplication extends SpringBootServletInitializer {
                 .ignoreIfMissing()
                 .load();
 
-            System.setProperty("PGHOST", dotenv.get("PGHOST", System.getenv("PGHOST")));
-            System.setProperty("PGPORT", dotenv.get("PGPORT", System.getenv("PGPORT")));
-            System.setProperty("PGDATABASE", dotenv.get("PGDATABASE", System.getenv("PGDATABASE")));
-            System.setProperty("PGUSER", dotenv.get("PGUSER", System.getenv("PGUSER")));
-            System.setProperty("POSTGRES_PASSWORD", dotenv.get("POSTGRES_PASSWORD", System.getenv("POSTGRES_PASSWORD")));
+            safeSetProperty("PGHOST", dotenv.get("PGHOST", System.getenv("PGHOST")));
+            safeSetProperty("PGPORT", dotenv.get("PGPORT", System.getenv("PGPORT")));
+            safeSetProperty("PGDATABASE", dotenv.get("PGDATABASE", System.getenv("PGDATABASE")));
+            safeSetProperty("PGUSER", dotenv.get("PGUSER", System.getenv("PGUSER")));
+            safeSetProperty("POSTGRES_PASSWORD", dotenv.get("POSTGRES_PASSWORD", System.getenv("POSTGRES_PASSWORD")));
         }
+
 
         SpringApplication.run(MuniprojectApplication.class, args);
         System.out.println("🚀 Aplicación Spring Boot iniciada en http://localhost:8080/");
@@ -58,5 +59,12 @@ public class MuniprojectApplication extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(MuniprojectApplication.class);
+    }
+    
+    // ✅ Método auxiliar para evitar NullPointerException
+    private static void safeSetProperty(String key, String value) {
+        if (value != null && !value.isBlank()) {
+            System.setProperty(key, value);
+        }
     }
 }
