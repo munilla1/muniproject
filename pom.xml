@@ -33,11 +33,6 @@
 	</properties>
 	<dependencies>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-
 	    <!-- Dependencias de Spring Boot -->
 	    <dependency>
 	        <groupId>org.springframework.boot</groupId>
@@ -52,17 +47,6 @@
 	        <artifactId>spring-boot-starter-test</artifactId>
 	        <scope>test</scope>
 	    </dependency>
-	    <dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
-		    <version>6.2.1</version> <!-- Usa la versión más reciente de tu proyecto -->
-		</dependency>
-		<dependency>
-		    <groupId>jakarta.servlet</groupId>
-		    <artifactId>jakarta.servlet-api</artifactId>
-		    <version>6.0.0</version>  <!-- O la versión compatible con tu proyecto -->
-		    <scope>provided</scope>
-		</dependency>
 		<dependency>
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-security</artifactId>
@@ -90,15 +74,6 @@
 		  <artifactId>dotenv-java</artifactId>
 		  <version>3.0.0</version>
 		</dependency>
-
-
-
-		<!--<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<version>9.4.0</version>
-		</dependency>-->
-
 	
 	    <!-- Soporte para JSP -->
 	    <dependency>
@@ -107,49 +82,17 @@
 	        <version>10.1.34</version>
 	    </dependency>
 	
-	    <!-- JSTL (Jakarta EE) - Elimina javax.servlet:jstl -->
-	    <dependency>
-	        <groupId>jakarta.servlet.jsp.jstl</groupId>
-	        <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-	        <version>3.0.0</version>
-	    </dependency>
-	    <dependency>
-	        <groupId>org.glassfish.web</groupId>
-	        <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-	        <version>3.0.1</version>
-	    </dependency>
-	
 	    <!-- Spring Session para persistencia de sesiones -->
 	    <dependency>
 	        <groupId>org.springframework.session</groupId>
 	        <artifactId>spring-session-jdbc</artifactId>
 	    </dependency>
 	    
-	    <!-- DevTools para desarrollo -->
-	    <dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-devtools</artifactId>
-	        <scope>runtime</scope>
-	        <optional>true</optional>
-	    </dependency>
-	    
-	    <dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
-	    
+	   
 	    <dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
-		<dependency>
-		  <groupId>org.springframework.boot</groupId>
-		  <artifactId>spring-boot-starter-tomcat</artifactId>
-		  <scope>provided</scope>
-		</dependency>
-
-
 		
 		<dependency>
 			<groupId>com.stripe</groupId>
@@ -161,12 +104,6 @@
 
 
 	<build>
-		<!--<resources>
-		  <resource>
-		    <directory>src/main/resources</directory>
-		    <filtering>false</filtering>
-		  </resource>
-		</resources>-->
 
 		<plugins>
 			<plugin>
