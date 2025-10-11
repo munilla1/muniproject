@@ -16,6 +16,4 @@ COPY --from=build /app/target/muniproject-0.0.1-SNAPSHOT.jar app.jar
 ENV SPRING_PROFILES_ACTIVE=prod
 
 # Arrancar la app con el perfil definido
-ENTRYPOINT ["sh", "-c", "java -jar app.jar --server.port=$PORT"]
-
-
+ENTRYPOINT ["sh", "-c", "java -jar app.jar --server.port=$PORT --debug"]
