@@ -48,7 +48,7 @@ public class MuniprojectApplication extends SpringBootServletInitializer {
             safeSetProperty("PGPORT", dotenv.get("PGPORT", System.getenv("PGPORT")));
             safeSetProperty("PGDATABASE", dotenv.get("PGDATABASE", System.getenv("PGDATABASE")));
             safeSetProperty("PGUSER", dotenv.get("PGUSER", System.getenv("PGUSER")));
-            safeSetProperty("POSTGRES_PASSWORD", dotenv.get("POSTGRES_PASSWORD", System.getenv("POSTGRES_PASSWORD")));
+            safeSetProperty("PGPASSWORD", dotenv.get("PGPASSWORD", System.getenv("PGPASSWORD")));
         }
 
 
