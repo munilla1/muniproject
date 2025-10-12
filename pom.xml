@@ -97,13 +97,48 @@
 
 
 	<build>
+	  <resources>
+		  <!-- Recursos filtrados -->
+		  <resource>
+		    <directory>src/main/resources</directory>
+		    <includes>
+		      <include>**/*.properties</include>
+		      <include>**/*.xml</include>
+		    </includes>
+		    <filtering>true</filtering>
+		  </resource>
+		
+		  <!-- Recursos sin filtrar -->
+		  <resource>
+		    <directory>src/main/resources</directory>
+		    <excludes>
+		      <exclude>**/*.properties</exclude>
+		      <exclude>**/*.xml</exclude>
+		    </excludes>
+		    <filtering>false</filtering>
+		  </resource>
+		</resources>
 
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
+	
+	  <plugins>
+	    <plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-resources-plugin</artifactId>
+	      <version>3.3.1</version>
+	      <configuration>
+	        <encoding>UTF-8</encoding> <!-- Aquí sí es válido -->
+	      </configuration>
+	    </plugin>
+	
+	    <plugin>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-maven-plugin</artifactId>
+	    </plugin>
+	  </plugins>
 	</build>
+
+
+
+
 
 </project>
