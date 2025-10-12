@@ -102,7 +102,7 @@ public class AuthController {
     
     @Controller
     public class HomeController {
-        @GetMapping("/")
+        @GetMapping("/prueba")
         public String index() {
             return "index"; // Thymeleaf buscará index.html en /templates
         }
