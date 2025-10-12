@@ -18,7 +18,9 @@ import com.service.UserDetailsServiceImpl;
 @EnableWebSecurity
 public class SecurityConfig {
 
+	@Autowired
     private UserDetailsServiceImpl userDetailsService;
+	@Autowired
     private PasswordEncoder passwordEncoder;
 
     @Bean
@@ -42,7 +44,6 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/")
                         .permitAll()
                 )
-                .userDetailsService(userDetailsService)
                 .sessionManagement(session -> session
                 		.sessionFixation().migrateSession()
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
