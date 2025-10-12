@@ -21,12 +21,6 @@ public class SecurityConfig {
     private UserDetailsServiceImpl userDetailsService;
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.passwordEncoder = passwordEncoder;
-    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
