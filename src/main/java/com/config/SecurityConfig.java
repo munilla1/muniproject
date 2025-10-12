@@ -18,8 +18,8 @@ import com.service.UserDetailsServiceImpl;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final UserDetailsServiceImpl userDetailsService;
-    private final PasswordEncoder passwordEncoder;
+    private UserDetailsServiceImpl userDetailsService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public SecurityConfig(UserDetailsServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
