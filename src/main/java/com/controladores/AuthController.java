@@ -99,5 +99,14 @@ public class AuthController {
         session.setAttribute("usuarioNombre", principal.getName());
         return "redirect:/pagPrincipalJuego";
     }
+    
+    @Controller
+    public class HomeController {
+        @GetMapping("/")
+        public String index() {
+            return "index"; // Thymeleaf buscará index.html en /templates
+        }
+    }
+
 
 }
