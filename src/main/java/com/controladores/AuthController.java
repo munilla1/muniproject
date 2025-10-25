@@ -27,25 +27,6 @@ public class AuthController {
     public AuthController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-    
-	/*
-	 * @Value("${PGHOST}") private String host;
-	 * 
-	 * @Value("${PGPORT}") private String port;
-	 * 
-	 * @Value("${PGDATABASE}") private String database;
-	 * 
-	 * @Value("${PGUSER}") private String username;
-	 * 
-	 * @Value("${PGPASSWORD}") private String password;
-	 * 
-	 * public String getJdbcUrl() { return "jdbc:postgresql://" + host + ":" + port
-	 * + "/" + database; }
-	 * 
-	 * public void imprimirDatos() { System.out.println("URL: " + getJdbcUrl());
-	 * System.out.println("Usuario: " + username); System.out.println("Contraseña: "
-	 * + password); }
-	 */
 
     @GetMapping("/")
     public String home() {
@@ -98,14 +79,6 @@ public class AuthController {
     public String loginSuccess(HttpSession session, Principal principal) {
         session.setAttribute("usuarioNombre", principal.getName());
         return "redirect:/pagPrincipalJuego";
-    }
-    
-    @Controller
-    public class HomeController {
-        @GetMapping("/prueba")
-        public String index() {
-            return "index"; // Thymeleaf buscará index.html en /templates
-        }
     }
 
 
