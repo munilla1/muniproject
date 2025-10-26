@@ -13,7 +13,7 @@ public class MuniprojectApplication {
         SpringApplication.run(MuniprojectApplication.class, args);
         System.out.println("🚀 Aplicación Spring Boot iniciada");
     }
-<<<<<<< HEAD
+
     
     @Bean
     CommandLineRunner dbg(Environment env) {
@@ -24,17 +24,4 @@ public class MuniprojectApplication {
             System.out.println(">>> RESOLVED server.port=" + env.getProperty("server.port"));
         };
     }
-=======
-
-    @Bean
-    CommandLineRunner dbg(org.springframework.core.env.Environment env) {
-      return args -> {
-        System.out.println(">>> ENV PORT=" + System.getenv("PORT"));
-        System.out.println(">>> ENV SERVER_PORT=" + System.getenv("SERVER_PORT"));
-        System.out.println(">>> SYS server.port=" + System.getProperty("server.port"));
-        System.out.println(">>> RESOLVED server.port=" + env.getProperty("server.port"));
-      };
-    }
-
->>>>>>> 6f0f71fcfe39704991e0faf785c5a34a452549a4
 }
