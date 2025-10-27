@@ -46,15 +46,14 @@ public class UsuarioService {
       Role rolUsuario = roleRepository.findByName(ERole.USER)
           .orElseThrow(() -> new RuntimeException("Rol USER no encontrado"));
 
-      Usuario usuario = Usuario.builder()
-          .username(dto.getUsername())
-          .correo(dto.getCorreo())
-          .password(passwordEncoder.encode(dto.getPassword()))
-          .roles(new HashSet<>(List.of(rolUsuario))) // <- mutable
-          .build();
+      Usuario u = Usuario.builder()
+    	        .username(dto.getUsername())
+    	        .correo(dto.getCorreo())
+    	        .password(passwordEncoder.encode(dto.getPassword()))
+    	        .roles(new java.util.HashSet<>(java.util.List.of(rolUsuario))) // mutable
+    	        .build();
 
-      // mientras depuras, fuerza el flush para ver el INSERT ya en logs
-      return usuarioRepository.saveAndFlush(usuario);
+      return usuarioRepository.save(u); // (puedes quitar saveAndFlush mientras no depures)
     }
 
     public Usuario findByUsername(String username) {
