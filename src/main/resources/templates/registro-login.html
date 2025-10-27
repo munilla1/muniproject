@@ -42,6 +42,8 @@
         </div>
 
         <form th:action="@{/guardar}" th:object="${registroDTO}" method="POST">
+        	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        
             <label for="usernameRegistro">Nombre:</label>
             <input type="text" id="usernameRegistro" th:field="*{username}" required>
 
@@ -66,6 +68,8 @@
         </div>
 
         <form th:action="@{/login}" method="POST">
+        	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        
             <label for="usernameLogin">Nombre de usuario:</label>
             <input type="text" id="usernameLogin" name="username" required>
 
