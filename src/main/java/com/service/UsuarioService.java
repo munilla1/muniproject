@@ -9,7 +9,10 @@ import com.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -28,32 +31,30 @@ public class UsuarioService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
     public Usuario registrar(RegistroDTO dto) {
-        if (usuarioRepository.existsByCorreo(dto.getCorreo())) {
-            throw new RuntimeException("El correo ya está registrado");
-        }
+      if (usuarioRepository.existsByCorreo(dto.getCorreo())) {
+        throw new RuntimeException("El correo ya está registrado");
+      }
+      if (usuarioRepository.existsByUsername(dto.getUsername())) {
+        throw new RuntimeException("El nombre de usuario ya existe");
+      }
+      if (!isPasswordStrong(dto.getPassword())) {
+        throw new RuntimeException("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial");
+      }
 
-        if (usuarioRepository.existsByUsername(dto.getUsername())) {
-            throw new RuntimeException("El nombre de usuario ya existe");
-        }
+      Role rolUsuario = roleRepository.findByName(ERole.USER)
+          .orElseThrow(() -> new RuntimeException("Rol USER no encontrado"));
 
-        if (!isPasswordStrong(dto.getPassword())) {
-            throw new RuntimeException(
-                "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
-            );
-        }
+      Usuario usuario = Usuario.builder()
+          .username(dto.getUsername())
+          .correo(dto.getCorreo())
+          .password(passwordEncoder.encode(dto.getPassword()))
+          .roles(new HashSet<>(List.of(rolUsuario))) // <- mutable
+          .build();
 
-        Role rolUsuario = roleRepository.findByName(ERole.USER)
-                .orElseThrow(() -> new RuntimeException("Rol USER no encontrado"));
-
-        Usuario usuario = Usuario.builder()
-                .username(dto.getUsername())
-                .correo(dto.getCorreo())
-                .password(passwordEncoder.encode(dto.getPassword()))
-                .roles(Set.of(rolUsuario))
-                .build();
-
-        return usuarioRepository.save(usuario);
+      // mientras depuras, fuerza el flush para ver el INSERT ya en logs
+      return usuarioRepository.saveAndFlush(usuario);
     }
 
     public Usuario findByUsername(String username) {
