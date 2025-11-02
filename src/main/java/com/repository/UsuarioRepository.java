@@ -15,4 +15,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     long deleteByUsername(String username);
     boolean existsByCorreo(String correo);
     boolean existsByUsername(String username);
+    boolean existsByCorreoIgnoreCase(String correo);
+    boolean existsByUsernameIgnoreCase(String username);
+
 }
