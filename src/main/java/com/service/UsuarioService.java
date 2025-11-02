@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -33,57 +33,35 @@ public class UsuarioService {
 
     @Transactional
     public Usuario registrar(RegistroDTO dto) {
-        // Normaliza entrada
-        final String correo    = dto.getCorreo()   == null ? "" : dto.getCorreo().trim().toLowerCase();
-        final String username  = dto.getUsername() == null ? "" : dto.getUsername().trim();
-        final String rawPass   = dto.getPassword() == null ? "" : dto.getPassword();
+      if (usuarioRepository.existsByCorreo(dto.getCorreo())) {
+        throw new RuntimeException("El correo ya está registrado");
+      }
+      if (usuarioRepository.existsByUsername(dto.getUsername())) {
+        throw new RuntimeException("El nombre de usuario ya existe");
+      }
+      if (!isPasswordStrong(dto.getPassword())) {
+        throw new RuntimeException("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial");
+      }
 
-        // Validaciones básicas
-        if (correo.isBlank() || username.isBlank() || rawPass.isBlank()) {
-            throw new IllegalArgumentException("Correo, usuario y contraseña son obligatorios.");
-        }
-        if (!isPasswordStrong(rawPass)) {
-            throw new IllegalArgumentException(
-                "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial."
-            );
-        }
+      Role rolUsuario = roleRepository.findByName(ERole.USER)
+          .orElseThrow(() -> new RuntimeException("Rol USER no encontrado"));
 
-        // Comprobaciones de existencia (mejor en ignore-case)
-        if (usuarioRepository.existsByCorreoIgnoreCase(correo)) {
-            throw new IllegalStateException("El correo ya está registrado.");
-        }
-        if (usuarioRepository.existsByUsernameIgnoreCase(username)) {
-            throw new IllegalStateException("El nombre de usuario ya existe.");
-        }
+      Usuario u = Usuario.builder()
+    	        .username(dto.getUsername())
+    	        .correo(dto.getCorreo())
+    	        .password(passwordEncoder.encode(dto.getPassword()))
+    	        .roles(new java.util.HashSet<>(java.util.List.of(rolUsuario))) // mutable
+    	        .build();
 
-        // Obtiene el rol USER (coincidiendo con lo que tengas en DB)
-        // ERole.USER.name() -> "USER"
-        Optional<Role> rolOpt = roleRepository.findByName(ERole.USER.name());
-        // Si tienes un método ignore case, usa: roleRepository.findByNameIgnoreCase(ERole.USER.name())
-        Role rolUsuario = rolOpt.orElseThrow(() -> new IllegalStateException("Rol USER no encontrado"));
-
-        // Construye el usuario
-        Set<Role> roles = new HashSet<>();
-        roles.add(rolUsuario);
-
-        Usuario u = Usuario.builder()
-                .username(username)
-                .correo(correo)
-                .password(passwordEncoder.encode(rawPass))
-                .roles(roles)
-                .build();
-
-        // Guarda (saveAndFlush si quieres ver el INSERT inmediatamente en logs)
-        return usuarioRepository.save(u);
+      return usuarioRepository.saveAndFlush(u); // (puedes quitar saveAndFlush mientras no depures)
     }
 
     public Usuario findByUsername(String username) {
-        return usuarioRepository.findByUsername(username).orElse(null);
+        return usuarioRepository.findByUsername(username)
+                .orElse(null);
     }
 
     private boolean isPasswordStrong(String password) {
-        return password != null &&
-               password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
     }
 }
-
