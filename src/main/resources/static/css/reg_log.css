@@ -1,0 +1,176 @@
+/* ========= Variables y reset suave ========= */
+:root{
+  --beige: #d9cbbd;
+  --beige-90: rgba(217,203,189,.92);
+  --dark: #2b2a2a;
+  --primary: #0d6efd;        /* azul botón bootstrap-like */
+  --shadow: 0 12px 24px rgba(0,0,0,.25);
+  --radius: 14px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
+body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue", sans-serif; }
+
+/* ========= Header (barra oscura con logo a la izq. y usuario a la dcha.) ========= */
+.contenedor{
+  background: #3b3a3a;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.logo{ height: 40px; width: auto; display:block; }
+.contcerrarsesion{ display:flex; align-items:center; gap:12px; color:#fff; }
+.contMensaje p{ margin:0; color:#fff; }
+#ddboton2.btn{ padding: .4rem .8rem; }
+
+/* ========= Vídeo de fondo a pantalla completa ========= */
+.video-container{
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(.55);
+}
+
+/* ========= Layout de formularios (3 columnas → 1 en móvil) ========= */
+.formularios{
+  width: min(1200px, 92%);
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: 1fr;        /* por defecto móvil, 1 col */
+  gap: 28px;
+  align-items: stretch;
+}
+@media (min-width: 768px){
+  .formularios{
+    grid-template-columns: 1fr 1fr;   /* tablet: 2 cols (Registro | Login) */
+  }
+}
+@media (min-width: 1200px){
+  .formularios{
+    grid-template-columns: 1fr .9fr 1fr; /* desktop grande: 3 cols (Reg | Img | Login) */
+  }
+}
+
+/* ========= Tarjetas (Registro/Login) ========= */
+.form{
+  background: var(--beige-90);
+  backdrop-filter: blur(2px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+.form h1{
+  margin: 0 0 14px;
+  font-size: clamp(1.25rem, 1.1rem + 1vw, 1.75rem);
+}
+.form label{
+  display:block;
+  margin: 10px 0 6px;
+  font-weight: 600;
+}
+.form input[type="text"],
+.form input[type="password"],
+.form input[type="email"]{
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #c6c6c6;
+  background: rgba(255,255,255,.85);
+  outline: none;
+}
+.form input:focus{
+  border-color: #9bbcff;
+  box-shadow: 0 0 0 3px rgba(13,110,253,.2);
+}
+.botonRegistrarse,
+.form button[type="submit"]{
+  display:block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .08s ease, filter .2s ease;
+}
+.botonRegistrarse:hover,
+.form button[type="submit"]:hover{ filter: brightness(.95); }
+.botonRegistrarse:active,
+.form button[type="submit"]:active{ transform: translateY(1px); }
+
+/* ========= Columna central: imagen de bienvenida ========= */
+.bienv{
+  display:block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  /* en pantallas grandes que ocupe visualmente el centro */
+  filter: drop-shadow(0 6px 20px rgba(0,0,0,.4));
+}
+/* Asegura que la columna central se centre verticalmente cuando exista */
+.formularios > div:nth-child(2){
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* En tablet (2 columnas) la imagen se oculta para no romper flujo */
+@media (min-width:768px) and (max-width:1199.98px){
+  .formularios > div:nth-child(2){ display: none; }
+}
+
+/* ========= Mensaje de confirmación flotante ========= */
+.contenedor-mensaje{
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+}
+.cont{
+  display:flex; align-items:center; gap:10px;
+  background: rgba(33, 177, 85, .95);
+  color:#fff; padding:10px 14px; border-radius: 12px; box-shadow: var(--shadow);
+}
+.telefono{ width: 20px; height: 20px; }
+
+/* ========= Botón "Entrar" centrado ========= */
+.container-botonJugar{ display:flex; justify-content:center; margin: 10px 0 28px; }
+.botonJugar{
+  display:inline-block;
+  padding: 12px 22px;
+  background: #2db36c;
+  color:#fff; text-decoration:none; border-radius: 12px; font-weight:700;
+  box-shadow: var(--shadow);
+  transition: filter .2s ease, transform .08s ease;
+}
+.botonJugar:hover{ filter: brightness(.95); }
+.botonJugar:active{ transform: translateY(1px); }
+
+/* ========= Footer ========= */
+.pie-pagina{
+  color:#fff; text-align:center;
+  padding: 10px 0 16px; font-size: .95rem;
+}
+.pie{ margin:0; }
+
+/* ========= Ajustes finos en móvil ========= */
+@media (max-width: 480px){
+  .contenedor{ padding: 8px 12px; }
+  .contcerrarsesion p{ font-size: .95rem; }
+  .form{ padding: 16px; }
+}
+
+/* ========= Compatibilidad con tu .alert-pequeno existente ========= */
+/* (se mantiene lo que ya tienes definido en tu CSS) */
