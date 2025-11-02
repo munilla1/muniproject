@@ -1,7 +1,7 @@
 /* ========= Variables y reset suave ========= */
 :root{
-  --beige: #d9cbbd;
-  --beige-90: rgba(217,203,189,.92);
+  --beige: #fbf2e7;
+  --beige-90: #fbf2e7;
   --dark: #2b2a2a;
   --primary: #0d6efd;        /* azul botón bootstrap-like */
   --shadow: 0 12px 24px rgba(0,0,0,.25);
@@ -37,7 +37,6 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Aria
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  filter: brightness(.55);
 }
 
 /* ========= Layout de formularios (3 columnas → 1 en móvil) ========= */
@@ -67,6 +66,7 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Aria
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 20px;
+  opacity: 0.8;
 }
 .form h1{
   margin: 0 0 14px;
