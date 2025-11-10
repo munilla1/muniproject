@@ -192,8 +192,8 @@ body {
     }
     
     .bienv {
-    	margin-top: 30px;
-    	margin-bottom: 30px;
+    	margin-top: 10px;
+    	margin-bottom: 10px;
     }
 
     .contcerrarsesion {
@@ -203,6 +203,6 @@ body {
 
     .sidebar {
     	margin-bottom: 20px;
-        padding: 10rem .75rem 4rem;
+        padding: 1rem .75rem 8rem;
     }
 }
