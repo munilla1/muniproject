@@ -1,25 +1,26 @@
-
-
+/* ================= BASE ================= */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #000;
+    color: #fff;
 }
 
+/* ================= HEADER (compat con tu HTML) ================= */
 .contenedor {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #333;
-    padding: 15px; /* Menos espacio para un diseño más compacto */
+    padding: 15px;
     flex-wrap: wrap;
 }
 
 .logo {
-    width: 240px; /* Reducción del tamaño de la imagen */
+    width: 200px;
     height: auto;
-    margin-left: 55px;
+    margin-left: 0;
 }
 
 .menu {
@@ -30,21 +31,17 @@ body {
 
 .menu ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
-}
-
-.menu ul li {
-    margin: 0 10px;
-    display: inline-block;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
 }
 
 .menu ul li a {
     text-decoration: none;
     color: white;
-    font-size: 22px; /* Reducción de tamaño */
-    padding: 6px 20px;
+    font-size: 18px;
+    padding: 6px 16px;
     transition: background 0.3s ease;
 }
 
@@ -53,101 +50,77 @@ body {
     border-radius: 5px;
 }
 
+/* contenedor “usuario + logout” */
 .contcerrarsesion {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
     background-color: #444;
-    padding: 0px 10px; /* Contenedor más pequeño y alargado */
-    border-radius: 15px;
+    padding: 6px 12px;
+    border-radius: 12px;
     color: white;
 }
 
 .contMensaje {
-    margin-right: 8px;
-    font-size: 15px; /* Texto más pequeño */
+    font-size: 14px;
 }
 
 .contDdboton button {
     background-color: #fcc85c;
     color: black;
     border: none;
-    padding: 0px 15px; /* Botón más compacto */
-    border-radius: 12px;
-    font-size: 15px;
+    padding: 4px 14px;
+    border-radius: 10px;
+    font-size: 14px;
     cursor: pointer;
 }
 
-.contDdboton button:hover {
-    background-color: #cc4444;
-}
-
-/* 🔹 Diseño responsive */
-@media screen and (max-width: 768px) {
-    .contenedor {
-        flex-direction: column; /* Coloca los elementos en una columna */
-        align-items: center;
-    }
-
-    .menu ul {
-        flex-direction: column; /* Apila los elementos verticalmente */
-        align-items: center;
-        gap: 10px;
-    }
-
-    .menu ul li a {
-        font-size: 16px;
-        padding: 8px 12px;
-    }
-
-    .logo {
-        width: 120px; /* Reduce el tamaño del logo en pantallas pequeñas */
-    }
-}
-
-.bienv {
-	display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 290px;
-    width: 350px;
-    margin: auto;
-}
-
-li {
-    color: white; /* 🔹 Cambia el color del texto a blanco */
-}
-
-/*----------------------------------------- sidebar ----------------------------------*/
-
-        
-.sidebar {
-    position: fixed;
-    right: 80px;
-    top: 150px; /* 🔹 Ajustado más abajo */
-    width: 640px;
-    height: 530px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    border: 2px solid #ffa500;
-    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
-    padding: 15px;
-    overflow-y: auto;
-    color: white;
-    scrollbar-width: thin; /* 🔹 Scroll compacto */
-}
+/* ================= LAYOUT DE LA PÁGINA ================= */
+/* Aquí es donde cambiamos: ya no posiciones fijas */
 
 .sinfo {
-	position: fixed;
-    left: 70px;
+    display: block;
+    max-width: 24.5%;
+    height: auto;
+    margin-left: 180px;
 }
 
-.LCA{
-	font-weight: bold;
+/* El panel de la derecha */
+.sidebar {
+    background: rgba(0, 0, 0, 0.6);
+    border: 3px solid #ffa500;
+    border-radius: 8px;
+    padding: 15px;
+    color: white;
+    backdrop-filter: blur(3px);
+    overflow-y: auto;
 }
 
-.imagemus{
-	width: 200px;
+/* Texto dentro del panel */
+.LCA {
+	color: red;
+    font-weight: bold;
+    font-size: 1.15rem;
+    margin-bottom: .4rem;
+}
+
+.sidebar p {
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.sidebar iframe {
+    width: 100%;
+    min-height: 185px;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: .8rem;
+}
+
+.imagemus {
+    width: 180px;
+    display: block;
+    margin: 1rem auto .3rem;
 }
 
 .icono-red {
@@ -158,27 +131,70 @@ li {
 }
 
 .contacto p {
-	padding-top: 20px;
     display: flex;
+    gap: .5rem;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    margin-top: 1rem;
 }
 
-.contacto a img {
-    margin-left: auto;
+/* ============ ESCRITORIO (como en tu captura) ============ */
+@media (min-width: 992px) {
+
+    /* imagen izquierda, panel derecha */
+    .sinfo {
+        float: left;
+        width: calc(100% - 420px);
+    }
+
+    .sidebar {
+        float: right;
+        width: 700px;
+        margin-right: 140px;
+        margin-bottom: 30px;
+        margin-top: 30px;
+        max-height: calc(100vh - 160px); /* scroll interno como en la imagen */
+    }
 }
 
+/* ============ TABLET ============ */
+@media (max-width: 991px) {
+    .contenedor {
+        flex-direction: column;
+        gap: .6rem;
+    }
 
-/* Scroll estilizado */
-.sidebar::-webkit-scrollbar {
-    width: 6px;
+    .menu ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .sinfo {
+        float: none;
+        margin: 1rem auto 0;
+        max-width: 94%;
+    }
+
+    .sidebar {
+        float: none;
+        margin: 1rem auto;
+        max-width: 94%;
+        max-height: none; /* que no corte los vídeos en móvil */
+    }
 }
 
-.sidebar::-webkit-scrollbar-thumb {
-    background: #ffa500;
-    border-radius: 10px;
-}
+/* ============ MÓVIL ============ */
+@media (max-width: 576px) {
+    .logo {
+        width: 140px;
+    }
 
-.sidebar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    .contcerrarsesion {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sidebar {
+        padding: 1rem .75rem 3.5rem;
+    }
 }

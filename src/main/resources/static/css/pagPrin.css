@@ -1,0 +1,217 @@
+/* =============== RESET SUAVE =============== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #fff;
+  position: relative;
+  background: #000;
+}
+
+/* =============== VIDEO DE FONDO =============== */
+.video-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* capa oscura para que se lea el texto */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0,0,0,.05) 0%, rgba(0,0,0,.7) 100%);
+  z-index: -1;
+}
+
+/* =============== HEADER =============== */
+.contenedor {
+  width: 100%;
+  background: #2f3133; /* como en tu captura */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .75rem 1.5rem;
+  z-index: 10;
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+}
+
+.menu ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.menu a:hover {
+  color: #f2b632;
+}
+
+.contcerrarsesion {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.contMensaje p {
+  margin: 0;
+  font-size: .8rem;
+}
+
+#ddboton2 {
+  font-size: .78rem;
+  padding: .35rem .85rem;
+}
+
+/* =============== LAYOUT PRINCIPAL (ESCRITORIO) =============== */
+
+/* imagen grande de la izquierda */
+.sinfo {
+  display: block;
+  max-width: 50%;
+  height: auto;
+  /* que se parezca al espacio dejado en la captura */
+  width: calc(54% - 420px);
+  margin: 0;
+  margin-left: 90px;
+  margin-top: 0px;
+  border-radius: .5rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  float: left;
+}
+
+/* panel de la derecha */
+.sidebar {
+  width: 380px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 3px solid #f2b632;
+  border-radius: .5rem;
+  margin-top: 1.5rem;
+  margin-right: 1.5rem;
+  padding: 1.2rem 1.1rem 5rem;
+  float: right;
+  /* para que salga la barrita de scroll como en la foto */
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  backdrop-filter: blur(4px);
+}
+
+.sidebar h3 {
+  font-family: "Orbitron", system-ui, sans-serif;
+  font-size: 1.25rem;
+  margin-bottom: .4rem;
+}
+
+.sidebar p {
+  font-size: .9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.sidebar iframe {
+  width: 100%;
+  min-height: 185px;
+  border: none;
+  border-radius: .35rem;
+  margin-bottom: .8rem;
+}
+
+.imagemus {
+  display: block;
+  max-width: 120px;
+  margin: 1rem auto .5rem;
+}
+
+.contacto {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.icono-red {
+  width: 22px;
+  height: 22px;
+  margin-right: .35rem;
+  vertical-align: middle;
+}
+
+/* que el footer quede abajo y limpie los floats */
+.pie-pagina {
+  clear: both;
+  background: #2f3133;
+  text-align: center;
+  padding: .4rem 1rem .8rem;
+  font-size: .75rem;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* =============== RESPONSIVE =============== */
+
+/* tablets y abajo */
+@media (max-width: 991px) {
+  /* quitamos los floats para apilar */
+  .sinfo,
+  .sidebar {
+    float: none;
+    width: 100%;
+    margin: 1rem auto 0;
+  }
+
+  .sinfo {
+    max-width: 95%;
+  }
+
+  .sidebar {
+    max-width: 95%;
+    margin-bottom: 1rem;
+    max-height: none;   /* que no recorte en móvil */
+  }
+
+  .contenedor {
+    flex-wrap: wrap;
+  }
+
+  .contcerrarsesion {
+    margin-left: 0;
+  }
+}
+
+/* móviles pequeños */
+@media (max-width: 576px) {
+  .contenedor {
+    padding: .6rem .75rem;
+  }
+
+  .menu ul {
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+
+  .sinfo {
+    margin-left: .5rem;
+  }
+
+  .sidebar {
+    padding: 1rem .75rem 4rem;
+  }
+}
