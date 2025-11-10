@@ -152,7 +152,7 @@ body {
         float: right;
         width: 700px;
         margin-right: 140px;
-        margin-bottom: 30px;
+        padding-bottom: 30px;
         margin-top: 30px;
         max-height: calc(100vh - 160px); /* scroll interno como en la imagen */
     }
