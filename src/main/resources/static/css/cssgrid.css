@@ -179,7 +179,7 @@ body {
     .sidebar {
         float: none;
         margin: 1rem auto;
-        margin-bottom: 10px;
+        padding-bottom: 10px;
         max-width: 94%;
         max-height: none; /* que no corte los vídeos en móvil */
     }
@@ -189,6 +189,11 @@ body {
 @media (max-width: 580px) {
     .logo {
         width: 140px;
+    }
+    
+    .bienv {
+    	margin-top: 30px;
+    	margin-bottom: 30px;
     }
 
     .contcerrarsesion {
