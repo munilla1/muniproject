@@ -1,19 +1,16 @@
 package com.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.DTOs.RegistroDTO;
 import com.model.ERole;
 import com.model.Role;
 import com.model.Usuario;
 import com.repository.RoleRepository;
 import com.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Service
 public class UsuarioService {
