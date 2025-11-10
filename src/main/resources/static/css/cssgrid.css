@@ -185,7 +185,7 @@ body {
 }
 
 /* ============ MÓVIL ============ */
-@media (max-width: 576px) {
+@media (max-width: 580px) {
     .logo {
         width: 140px;
     }
@@ -196,7 +196,7 @@ body {
     }
 
     .sidebar {
-    	margin-bottom: 10px;
+    	padding-bottom: 20px;
         padding: 1rem .75rem 3.5rem;
     }
 }
