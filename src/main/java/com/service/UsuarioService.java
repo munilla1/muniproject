@@ -54,7 +54,7 @@ public class UsuarioService {
     	        .roles(new java.util.HashSet<>(java.util.List.of(rolUsuario))) // mutable
     	        .build();
 
-      return usuarioRepository.saveAndFlush(u); 
+      return usuarioRepository.save(u); 
     }
 
     public Usuario findByUsername(String username) {
