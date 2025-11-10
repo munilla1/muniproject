@@ -94,6 +94,7 @@ body {
     color: white;
     backdrop-filter: blur(3px);
     overflow-y: auto;
+    margin-bottom: 20px;
 }
 
 /* Texto dentro del panel */
@@ -197,6 +198,6 @@ body {
 
     .sidebar {
     	padding-bottom: 20px;
-        padding: 1rem .75rem 3.5rem;
+        padding: 1rem .75rem 4rem;
     }
 }
