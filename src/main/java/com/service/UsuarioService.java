@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.DTOs.RegistroDTO;
 import com.model.ERole;
@@ -39,6 +40,9 @@ public class UsuarioService {
       if (!isPasswordStrong(dto.getPassword())) {
         throw new RuntimeException("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial");
       }
+      
+      boolean active = TransactionSynchronizationManager.isActualTransactionActive();
+      System.out.println("¿Transacción activa? " + active);
 
       Role rolUsuario = roleRepository.findByName(ERole.USER)
           .orElseThrow(() -> new RuntimeException("Rol USER no encontrado"));
