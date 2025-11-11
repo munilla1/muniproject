@@ -8,13 +8,14 @@ body {
 }
 
 /* ================= HEADER (compat con tu HTML) ================= */
-.contenedor {
+header.contenedor{
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #333;
     padding: 15px;
     flex-wrap: wrap;
+    z-index: 100;
 }
 
 .logo {
@@ -62,7 +63,13 @@ body {
 }
 
 .contMensaje {
+	margin-top: 10px;
     font-size: 14px;
+}
+
+.usu {
+	color: #fcc85c;
+	font-style: bold;
 }
 
 .contDdboton button {

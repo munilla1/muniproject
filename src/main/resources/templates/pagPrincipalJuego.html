@@ -17,7 +17,7 @@
 
 <header class="contenedor">
     <img th:src="@{/imagenes/mus.png}" alt="Logo" class="logo">
-    <nav class="menu" th:if="${usuarioNombre != null}">
+    <nav class="menu">
         <ul>
             <li><a th:href="@{/pagPrincipalJuego}">Inicio</a></li>
             <li><a th:href="@{/infografias}">Infografías</a></li>
@@ -25,7 +25,7 @@
             <li><a th:href="@{/perfil}">Perfil</a></li>
         </ul>
     </nav>
-    <div class="contcerrarsesion" th:if="${usuarioNombre != null}">
+    <div class="contcerrarsesion">
         <div class="contMensaje">
             <p>Usuario: <span class="usu" th:text="${usuarioNombre}">Nombre de usuario</span></p>
         </div>

@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .loginPage("/registro-login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/pagPrincipalJuego", true)
+                        .successForwardUrl("/login-success")
                         .failureUrl("/registro-login?error=true")
                         .permitAll()
                 )

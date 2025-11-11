@@ -52,6 +52,13 @@ public class AuthController {
 
         return "registro-login";
     }
+    
+    @GetMapping("/infografias")
+    public String verInfografias(HttpSession session, Model model) {
+    	Object usuarioNombre = session.getAttribute("usuarioNombre");
+        model.addAttribute("usuarioNombre", usuarioNombre);
+        return "infografias";
+    }
 
 
     @PostMapping("/guardar")
