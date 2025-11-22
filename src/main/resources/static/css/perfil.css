@@ -13,10 +13,9 @@
     background: #f8f9fa;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px #fbf2e7;
     width: 100%;
     max-width: 550px;
-    opacity: 0.8;
     margin-left: 80px;
     margin-top: 20px;
 }
@@ -44,6 +43,7 @@
 
 .productos-comprados li {
     background: #000040;
+	color: #ffffff;
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 8px;
@@ -85,7 +85,6 @@
     padding: 20px;
     border-radius: 8px;
     width: 300px;
-    opacity: 0.8;
 }
 
 .form h1 {

@@ -1,7 +1,9 @@
 package com.controladores;
 
 import com.DTOs.RegistroDTO;
+import com.DTOs.EliminarDTO;
 import com.model.Usuario;
+import com.service.CustomUserDetails;
 import com.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 
@@ -9,6 +11,7 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping
@@ -59,7 +63,15 @@ public class AuthController {
         model.addAttribute("usuarioNombre", usuarioNombre);
         return "infografias";
     }
-
+    
+    @GetMapping("/perfil")
+    public String verPerfil(HttpSession session, Model model) {
+    	Object usuarioNombre = session.getAttribute("usuarioNombre");
+        model.addAttribute("usuarioNombre", usuarioNombre);
+        model.addAttribute("registroDTO", new RegistroDTO());
+        model.addAttribute("eliminarDTO", new EliminarDTO());
+        return "perfil";
+    }
 
     @PostMapping("/guardar")
     public String registerUser(@ModelAttribute RegistroDTO registroDTO, Model model) {
@@ -88,5 +100,47 @@ public class AuthController {
         return "redirect:/pagPrincipalJuego";
     }
 
+    @PostMapping("/modificar")
+    public String modificar(@ModelAttribute RegistroDTO registroDTO,
+                            @AuthenticationPrincipal CustomUserDetails userDetails,
+                            RedirectAttributes redirectAttributes,
+                            HttpSession session) {
+        try {
+            usuarioService.modificar(userDetails.getUsername(), registroDTO);
+            
+            session.invalidate();
+
+            redirectAttributes.addFlashAttribute("mensaje",
+                    "Perfil actualizado correctamente. Por seguridad, inicia sesión de nuevo.");
+
+            return "redirect:/registro-login";
+
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/perfil";
+        }
+    }
+    
+    @PostMapping("/eliminar")
+    public String eliminar(@ModelAttribute EliminarDTO eliminarDTO,
+                           @AuthenticationPrincipal CustomUserDetails userDetails,
+                           RedirectAttributes redirectAttributes,
+                           HttpSession session) {
+
+        try {
+            usuarioService.eliminarUsuario(eliminarDTO, userDetails.getUsername());
+
+            session.invalidate();
+
+            redirectAttributes.addFlashAttribute("mensajeEliminacion",
+                    "Tu cuenta ha sido eliminada correctamente.");
+
+            return "redirect:/registro-login";
+
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/perfil";
+        }
+    }
 
 }

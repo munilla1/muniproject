@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.DTOs.RegistroDTO;
+import com.DTOs.EliminarDTO;
 import com.model.ERole;
 import com.model.Role;
 import com.model.Usuario;
@@ -55,6 +56,36 @@ public class UsuarioService {
     	        .build();
 
       return usuarioRepository.save(u); 
+    }
+    
+    public void modificar(String usernameActual, RegistroDTO dto) {
+
+        Usuario usuario = usuarioRepository.findByUsername(usernameActual)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado."));
+
+        usuario.setUsername(dto.getUsername());
+        usuario.setCorreo(dto.getCorreo());
+        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
+
+        usuarioRepository.save(usuario);
+    }
+    
+    public void eliminarUsuario(EliminarDTO dto, String usernameAutenticado) {
+
+        // Verificar que el usuario autenticado está intentando borrarse a sí mismo
+        if (!dto.getUsername().equals(usernameAutenticado)) {
+            throw new RuntimeException("No puedes eliminar otro usuario.");
+        }
+
+        Usuario usuario = usuarioRepository.findByUsername(usernameAutenticado)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado."));
+
+        // Verificar contraseña
+        if (!passwordEncoder.matches(dto.getContrasenaIngresada(), usuario.getPassword())) {
+            throw new RuntimeException("Contraseña incorrecta.");
+        }
+
+        usuarioRepository.delete(usuario);
     }
 
     public Usuario findByUsername(String username) {

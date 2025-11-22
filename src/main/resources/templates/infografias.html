@@ -17,7 +17,7 @@
         <ul>
             <li><a th:href="@{/pagPrincipalJuego}">Inicio</a></li>
             <li><a th:href="@{/infografias}">Infografias</a></li>
-            <li>|</li>
+            <li style="color:white;">|</li>
             <li><a th:href="@{/perfil}">Perfil</a></li>
         </ul>
     </nav>
@@ -39,13 +39,9 @@
     </video>
     
     <div class="cartas">
-    	<form th:action="@{/checkout(productoId=6)}" method="get">
-	    	<input type="hidden" name="productoId" value="6">
-	        <button type="submit" class="custom-button-pack">PACK AHORRO<br>🔻<br>Adquirir todo - 19,99€</button>
-	    </form>
 	    <div class="card-container">
 	        <div class="card">
-	            <img th:src="@{/imagenes/in_I.png}" alt="Imagen 1">
+	            <img th:src="@{/imagenes/in_I.jpg}" alt="Imagen 1">
 	            <div class="card-content">
 	                <h2>Herramientas de Alto Rendimiento para Entrenadores</h2>
 	                <p>Organiza, monitoriza y optimiza tus sesiones de entrenamiento con infografías descargables basadas en datos reales. Desde planificación de microciclos y tareas, hasta control de carga, bienestar y lesiones, todo lo que un entrenador necesita en un solo lugar.</p>
@@ -58,7 +54,7 @@
 	    </form>
 	    <div class="card-container">
 	        <div class="card">
-	            <img th:src="@{/imagenes/in_II.png}" alt="Imagen 2">
+	            <img th:src="@{/imagenes/in_II.jpg}" alt="Imagen 2">
 	            <div class="card-content">
 	                <h2>Ciencia y Entrenamiento en Formato Visual</h2>
 	                <p>Accede a una colección de infografías basadas en evidencia científica sobre fuerza, hipertrofia, prevención de lesiones, nutrición y recuperación. Una herramienta visual y práctica para entrenadores personales, preparadores físicos y profesionales del deporte que buscan comunicar de forma clara, actual y efectiva.</p>
@@ -71,7 +67,7 @@
 	    </form>
 	    <div class="card-container">
 	        <div class="card">
-	            <img th:src="@{/imagenes/in_III.png}" alt="Imagen 3">
+	            <img th:src="@{/imagenes/in_III.jpg}" alt="Imagen 3">
 	            <div class="card-content">
 	                <h2>Control Inteligente de la Carga de Entrenamiento</h2>
 	                <p>Monitorea y analiza la percepción del esfuerzo diario y crónico de tus deportistas. Optimiza el rendimiento, reduce el riesgo de lesiones y toma decisiones basadas en datos objetivos y subjetivos. Una herramienta esencial para entrenadores que buscan una planificación más precisa y personalizada.</p>
@@ -84,7 +80,7 @@
 	    </form>
 	    <div class="card-container">
 	        <div class="card">
-	            <img th:src="@{/imagenes/ball.png}" alt="Imagen 4">
+	            <img th:src="@{/imagenes/in_IV.jpg}" alt="Imagen 4">
 	            <div class="card-content">
 	                <h2>Programa de Entrenamiento y Optimización Física</h2>
 	                <p>El documento es un recopilatorio estructurado de ejercicios y protocolos de entrenamiento físico y técnico. Está enfocado en la mejora del rendimiento deportivo a través de diversas metodologías, incluyendo activación neuromuscular, entrenamiento de fuerza, movilidad, propiocepción y ejercicios tácticos. Se abordan distintas zonas de trabajo, como la zona de porteros, ejercicios de fuerza específica, resistencia y velocidad, además de sesiones de activación preventiva.</p>
@@ -107,6 +103,10 @@
 	    <form th:action="@{/checkout(productoId=5)}" method="get">
 	    	<input type="hidden" name="productoId" value="5">
 	        <button type="submit" class="custom-button">Adquirir - 7,99€</button>
+	    </form>
+	    <form th:action="@{/checkout(productoId=6)}" method="get">
+	    	<input type="hidden" name="productoId" value="6">
+	        <button type="submit" class="custom-button-pack">PACK AHORRO<br>🔻<br>Adquirir todo - 19,99€</button>
 	    </form>
 	</div>
     

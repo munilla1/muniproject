@@ -32,6 +32,7 @@
 
 <div class="formularios">
 
+	<img class="bienv" th:src="@{/imagenes/bie.png}">
     <div class="form">
         <h1><b>Registro de usuario</b></h1>
         <div th:if="${error != null}">
@@ -57,10 +58,6 @@
         </form>
     </div>
 
-    <div>
-        <img class="bienv" th:src="@{/imagenes/bie.png}">
-    </div>
-
     <div class="form">
         <h1><b>Iniciar sesión</b></h1>
         <div th:if="${errorDeAcceso != null}">
@@ -76,10 +73,9 @@
             <label for="passwordLogin">Contraseña:</label>
             <input type="password" id="passwordLogin" name="password" required>
 
-            <button class="botonRegistrarse" type="submit">Iniciar sesión</button>
+            <button class="botonInicio" type="submit">Iniciar sesión</button>
         </form>
     </div>
-
 </div>
 
 <div th:if="${mensaje != null}" class="contenedor-mensaje">
