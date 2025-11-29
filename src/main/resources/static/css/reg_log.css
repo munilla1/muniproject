@@ -12,7 +12,11 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html, body { height: 100%; }
+html, body {
+    min-height: 100%;
+    height: auto;
+}
+
 body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue", sans-serif; }
 
 /* ========= Header (barra oscura con logo a la izq. y usuario a la dcha.) ========= */
@@ -150,10 +154,10 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Aria
 
 /* ========= Columna central: imagen de bienvenida ========= */
 .bienv{
-  display:block;
+  display: block;
   width: 250px;
-  margin-top: -40px;
-  margin-bottom: -40px;
+  margin-top: -20px;
+  margin-bottom: -20px;
 }
 /* Asegura que la columna central se centre verticalmente cuando exista */
 .formularios > img.bienv{
@@ -193,6 +197,19 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Aria
   padding: 10px 0 16px; font-size: .95rem;
 }
 .pie{ margin:0; }
+
+@media (max-width: 600px) {
+    .formularios,
+    .formularioReg {
+        width: 90% !important;  /* más ancha */
+        max-width: 400px;       /* tamaño máximo cómodo */
+    }
+
+    .form,
+    .formReg {
+        padding: 22px !important; /* un poco más de aire */
+    }
+}
 
 /* ========= Ajustes finos en móvil ========= */
 @media (max-width: 480px){
