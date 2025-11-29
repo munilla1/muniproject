@@ -54,7 +54,9 @@
     </div>
 </header>
 
-<div class="contenedor-perfil" th:if="${#authorization.expression('isAuthenticated()')}">
+<<div class="contenedor-perfil" th:if="${#authorization.expression('isAuthenticated()')}">
+
+    <!-- Productos -->
     <div class="productos-comprados">
         <h1>Bienvenido a tu perfil</h1>
         <h2>Productos comprados:</h2>
@@ -69,46 +71,55 @@
         </ul>
     </div>
 
-    <div class="formularios-contenedor">
-        <!-- Modificar Usuario -->
-        <div class="formularios">
-            <div class="form">
-                <h1><b>Modificar Usuario</b></h1>
-                <div th:if="${mensaje != null}" class="alert alert-success alert-pequeno">
-                    <p th:text="${mensaje}"></p>
-                </div>
-                <form th:action="@{/modificar}" method="POST">
-                    <label for="username">Nuevo Nombre de Usuario:</label>
-                    <input type="text" id="username" name="username" class="etivertical" required>
-                    <label for="correo">Nuevo Correo:</label>
-                    <input type="text" id="correo" name="correo" class="etivertical" required>
-                    <label for="password">Nueva Contraseña:</label>
-                    <input type="password" id="password" name="password" class="etipass" required>
-                    <button class="botonRegistrarse" type="submit" id="enviar">Actualizar</button>
-                </form>
-            </div>
-        </div>
+    <!-- Modificar Usuario -->
+    <div class="formularios">
+        <div class="form">
+            <h1><b>Modificar Usuario</b></h1>
 
-        <!-- Eliminar Usuario -->
-        <div class="formularios">
-            <div class="form">
-                <h1><b>Eliminar Usuario</b></h1>
-                <div th:if="${error != null}">
-                    <p style="color: red;" th:text="${error}"></p>
-                </div>
-                <div th:if="${mensajeEliminacion != null}" class="alert alert-success alert-pequeno">
-                    <p th:text="${mensajeEliminacion}"></p>
-                </div>
-                <form th:action="@{/eliminar}" method="POST">
-                    <label for="username">Nombre de usuario:</label>
-                    <input type="text" id="username" name="username" class="etivertical" required>
-                    <label for="contrasenaIngresada">Contraseña:</label>
-                    <input type="password" id="contrasenaIngresada" name="contrasenaIngresada" class="etipass" required>
-                    <button class="botonEliminar" type="submit" id="enviar">Eliminar usuario</button>
-                </form>
+            <div th:if="${mensaje != null}" class="alert alert-success alert-pequeno">
+                <p th:text="${mensaje}"></p>
             </div>
+
+            <form th:action="@{/modificar}" method="POST">
+                <label for="username">Nuevo Nombre de Usuario:</label>
+                <input type="text" id="username" name="username" class="etivertical" required>
+
+                <label for="correo">Nuevo Correo:</label>
+                <input type="text" id="correo" name="correo" class="etivertical" required>
+
+                <label for="password">Nueva Contraseña:</label>
+                <input type="password" id="password" name="password" class="etipass" required>
+
+                <button class="botonRegistrarse" type="submit" id="enviar">Actualizar</button>
+            </form>
         </div>
     </div>
+
+    <!-- Eliminar Usuario -->
+    <div class="formularios">
+        <div class="form">
+            <h1><b>Eliminar Usuario</b></h1>
+
+            <div th:if="${error != null}">
+                <p style="color: red;" th:text="${error}"></p>
+            </div>
+
+            <div th:if="${mensajeEliminacion != null}" class="alert alert-success alert-pequeno">
+                <p th:text="${mensajeEliminacion}"></p>
+            </div>
+
+            <form th:action="@{/eliminar}" method="POST">
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" id="username" name="username" class="etivertical" required>
+
+                <label for="contrasenaIngresada">Contraseña:</label>
+                <input type="password" id="contrasenaIngresada" name="contrasenaIngresada" class="etipass" required>
+
+                <button class="botonEliminar" type="submit" id="enviar">Eliminar usuario</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 <video class="video-container" id="video-bg" muted autoplay loop>

@@ -146,6 +146,80 @@ header.contenedor{
     margin-top: 1rem;
 }
 
+/* ---------------------------------------- caja de contacto ---------------------*/
+
+.info-contacto {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.35);
+    padding: 18px 22px;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    z-index: 9999;
+    backdrop-filter: blur(3px);
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    width: 260px;
+}
+
+.info-contacto .logo-contacto {
+    width: 140px;
+    display: block;
+    margin: 0 auto 12px auto;
+}
+
+.info-contacto .fila {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.info-contacto .fila:last-child {
+    margin-bottom: 0;
+}
+
+.info-contacto .icono {
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+}
+
+.info-contacto a {
+    color: #d7e9ff;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.info-contacto a:hover {
+    color: white;
+}
+
+.botonVolver {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 10px;
+  background: #ff977d;
+  border: 1px solid #000; 
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .08s ease, filter .2s ease;
+}
+
+.botonVolver:hover {
+  filter: brightness(.95);
+}
+
+.botonVolver:active {
+  transform: translateY(1px);
+}
+
 /* ============ ESCRITORIO (como en tu captura) ============ */
 @media (min-width: 992px) {
 

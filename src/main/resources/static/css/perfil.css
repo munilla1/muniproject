@@ -1,82 +1,74 @@
 
 
-/* 🌟 Contenedor que alinea todo */
 .contenedor-perfil {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;        /* 🔥 IMPORTANTE */
+    justify-content: center;
     align-items: flex-start;
-    gap: 40px;
-}
-
-/* 🌟 Contenedor de la sección */
-.productos-comprados {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px #fbf2e7;
+    gap: 30px;              /* separación entre columnas */
     width: 100%;
-    max-width: 550px;
-    margin-left: 80px;
-    margin-top: 20px;
+    padding: 20px;
 }
 
-/* 🎯 Estilo para los títulos */
+.productos-comprados,
+.formularios {
+    width: 100%;
+    max-width: 350px;       /* todas las tarjetas mismo ancho */
+}
+
+.productos-comprados {
+    background: #fbf2e7;              /* mismo color que los formularios */
+    padding: 20px 25px;               /* espacio interno */
+    border-radius: 14px;              /* esquinas redondeadas */
+    box-shadow: 0 12px 24px rgba(0,0,0,.25);  /* misma sombra */
+    width: 100%;
+    max-width: 350px;                 /* igual que los otros */
+    color: #000;                      /* texto visible sobre fondo claro */
+}
+
 .productos-comprados h1 {
     font-size: 24px;
-    color: #2c3e50;
     margin-bottom: 10px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .productos-comprados h2 {
     font-size: 20px;
-    color: #34495e;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    font-weight: 600;
 }
 
-/* 📋 Estilo para la lista */
 .productos-comprados ul {
-    list-style-type: none;
     padding: 0;
     margin: 0;
+    list-style: none;
 }
 
-.productos-comprados li {
+.productos-comprados li.empty-message {
     background: #000040;
-	color: #ffffff;
     padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* 📌 Texto del producto */
-.productos-comprados span {
-    font-size: 16px;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-/* 💲 Precio del producto */
-.productos-comprados span:last-child {
-    font-size: 16px;
-    color: #007bff;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 
-/* 🎯 Contenedor para los formularios */
+/* 🎯 FORMULARIOS */
 .formularios-contenedor {
     display: flex;
-    gap: 20px;
-    margin-right: 200px;
+    flex-direction: row; /* 🔥 los pone en fila */
+    gap: 30px;           /* separación entre los formularios */
+    justify-content: center; /* centrados en pantalla */
+    align-items: flex-start;
+    flex-wrap: wrap;     /* 🔥 importante para que en móvil bajen uno debajo del otro */
+    width: 100%;
+    margin-top: 20px;
 }
 
-/* 📝 Manteniendo el estilo original del formulario */
 .formularios {
-    padding-top: 20px;
+    width: 100%;
+    max-width: 350px; /* mismo ancho para ambos */
 }
 
 .form {
@@ -84,7 +76,8 @@
     background: #fbf2e7;
     padding: 20px;
     border-radius: 8px;
-    width: 300px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form h1 {
@@ -99,7 +92,7 @@
     font-weight: bold;
 }
 
-.form input[type="text"], 
+.form input[type="text"],
 .form input[type="password"] {
     width: 100%;
     padding: 10px;
@@ -108,15 +101,20 @@
     border-radius: 4px;
 }
 
-button.botonRegistrarse {
+/* BOTONES */
+button.botonRegistrarse,
+button.botonEliminar {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
+    padding: 12px;
     border: none;
     border-radius: 4px;
     color: white;
     font-size: 1em;
     cursor: pointer;
+}
+
+button.botonRegistrarse {
+    background-color: #007bff;
 }
 
 button.botonRegistrarse:hover {
@@ -124,16 +122,42 @@ button.botonRegistrarse:hover {
 }
 
 button.botonEliminar {
-    width: 100%;
-    padding: 10px;
     background-color: #ff8080;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    font-size: 1em;
-    cursor: pointer;
 }
 
 button.botonEliminar:hover {
-    background-color: #0056b3;
+    background-color: #ff4d4d;
+}
+
+/* 📱🔥 RESPONSIVE MOVIL */
+@media (max-width: 768px) {
+
+    .contenedor-perfil {
+        flex-direction: column;     /* Se apilan */
+        gap: 20px;
+    }
+
+    .productos-comprados {
+        margin-left: 0;
+        max-width: 100%;
+    }
+
+    .formularios-contenedor {
+        margin-right: 0;
+        max-width: 100%;
+    }
+
+    .form {
+        width: 100%;
+    }
+}
+
+/* 📱 EXTRA: móviles muy pequeños */
+@media (max-width: 480px) {
+    .productos-comprados h1 {
+        font-size: 20px;
+    }
+    .productos-comprados h2 {
+        font-size: 18px;
+    }
 }

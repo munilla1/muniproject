@@ -57,6 +57,15 @@ public class AuthController {
         return "registro-login";
     }
     
+    @GetMapping("/registro")
+    public String registrarse(Model model) {
+
+        // Esto es indispensable para que el formulario no cause error 500.
+        model.addAttribute("registroDTO", new RegistroDTO());
+
+        return "registro";  // página pública
+    }
+    
     @GetMapping("/infografias")
     public String verInfografias(HttpSession session, Model model) {
     	Object usuarioNombre = session.getAttribute("usuarioNombre");
@@ -94,11 +103,13 @@ public class AuthController {
         return "pagPrincipalJuego";
     }
     
-    @PostMapping("/login-success")
-    public String loginSuccess(HttpSession session, Principal principal) {
-        session.setAttribute("usuarioNombre", principal.getName());
-        return "redirect:/pagPrincipalJuego";
-    }
+	
+	  @PostMapping("/login-success") 
+	  public String loginSuccess(HttpSession session, Principal principal) { 
+		  session.setAttribute("usuarioNombre", principal.getName()); 
+		  return "redirect:/pagPrincipalJuego"; 
+	  }
+	 
 
     @PostMapping("/modificar")
     public String modificar(@ModelAttribute RegistroDTO registroDTO,
