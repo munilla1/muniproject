@@ -47,5 +47,10 @@ dist/
 .DS_Store
 Thumbs.db
 
-entorno.env
 /target
+
+# Ignorar archivos env
+.env
+*.env
+application-local.properties
+application-prod.properties

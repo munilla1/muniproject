@@ -13,25 +13,6 @@
 </head>
 <body>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch("/perfil/productos-comprados")
-            .then(response => response.json())
-            .then(productos => {
-                let lista = document.getElementById("productosComprados");
-
-                if (!Array.isArray(productos) || productos.length === 0) {
-                    lista.innerHTML = "<li>No has comprado ningún producto aún.</li>";
-                } else {
-                    lista.innerHTML = productos.map(producto =>
-                        `<li>${producto.nombre} - ${producto.precio}€</li>`
-                    ).join("");
-                }
-            })
-            .catch(error => console.error("Error al cargar los productos:", error));
-    });
-</script>
-
 <header class="contenedor">
     <img th:src="@{/imagenes/mus.png}" alt="Logo" class="logo">
     <nav class="menu" th:if="${#authorization.expression('isAuthenticated()')}">
@@ -54,7 +35,7 @@
     </div>
 </header>
 
-<<div class="contenedor-perfil" th:if="${#authorization.expression('isAuthenticated()')}">
+<div class="contenedor-perfil" th:if="${#authorization.expression('isAuthenticated()')}">
 
     <!-- Productos -->
     <div class="productos-comprados">
@@ -64,62 +45,64 @@
             <li th:if="${productosComprados == null or productosComprados.empty}" class="empty-message">
                 No has comprado ningún producto aún.
             </li>
-            <li th:each="producto : ${productosComprados}">
-                <span th:text="${producto.nombre}"></span>
-                <span th:text="${producto.precio} + '€'"></span>
-            </li>
+            <li th:each="producto, iterStat : ${productosComprados}">
+			    <span th:text="${iterStat.count}"></span>.
+			    <span th:text="${producto.nombre}"></span> -
+			
+			    <a th:href="@{/ver/{id}(id=${producto.id})}">Ver</a>
+			</li>
         </ul>
     </div>
-
-    <!-- Modificar Usuario -->
-    <div class="formularios">
-        <div class="form">
-            <h1><b>Modificar Usuario</b></h1>
-
-            <div th:if="${mensaje != null}" class="alert alert-success alert-pequeno">
-                <p th:text="${mensaje}"></p>
-            </div>
-
-            <form th:action="@{/modificar}" method="POST">
-                <label for="username">Nuevo Nombre de Usuario:</label>
-                <input type="text" id="username" name="username" class="etivertical" required>
-
-                <label for="correo">Nuevo Correo:</label>
-                <input type="text" id="correo" name="correo" class="etivertical" required>
-
-                <label for="password">Nueva Contraseña:</label>
-                <input type="password" id="password" name="password" class="etipass" required>
-
-                <button class="botonRegistrarse" type="submit" id="enviar">Actualizar</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Eliminar Usuario -->
-    <div class="formularios">
-        <div class="form">
-            <h1><b>Eliminar Usuario</b></h1>
-
-            <div th:if="${error != null}">
-                <p style="color: red;" th:text="${error}"></p>
-            </div>
-
-            <div th:if="${mensajeEliminacion != null}" class="alert alert-success alert-pequeno">
-                <p th:text="${mensajeEliminacion}"></p>
-            </div>
-
-            <form th:action="@{/eliminar}" method="POST">
-                <label for="username">Nombre de usuario:</label>
-                <input type="text" id="username" name="username" class="etivertical" required>
-
-                <label for="contrasenaIngresada">Contraseña:</label>
-                <input type="password" id="contrasenaIngresada" name="contrasenaIngresada" class="etipass" required>
-
-                <button class="botonEliminar" type="submit" id="enviar">Eliminar usuario</button>
-            </form>
-        </div>
-    </div>
-
+	<div class="formularios-contenedor">
+	    <!-- Modificar Usuario -->
+	    <div class="formularios">
+	        <div class="form">
+	            <h1><b>Modificar Usuario</b></h1>
+	
+	            <div th:if="${mensaje != null}" class="alert alert-success alert-pequeno">
+	                <p th:text="${mensaje}"></p>
+	            </div>
+	
+	            <form th:action="@{/modificar}" method="POST">
+	                <label for="username">Nuevo Nombre de Usuario:</label>
+	                <input type="text" id="username" name="username" class="etivertical" required>
+	
+	                <label for="correo">Nuevo Correo:</label>
+	                <input type="text" id="correo" name="correo" class="etivertical" required>
+	
+	                <label for="password">Nueva Contraseña:</label>
+	                <input type="password" id="password" name="password" class="etipass" required>
+	
+	                <button class="botonRegistrarse" type="submit" id="enviar">Actualizar</button>
+	            </form>
+	        </div>
+	    </div>
+	
+	    <!-- Eliminar Usuario -->
+	    <div class="formularios">
+	        <div class="form">
+	            <h1><b>Eliminar Usuario</b></h1>
+	
+	            <div th:if="${error != null}">
+	                <p style="color: red;" th:text="${error}"></p>
+	            </div>
+	
+	            <div th:if="${mensajeEliminacion != null}" class="alert alert-success alert-pequeno">
+	                <p th:text="${mensajeEliminacion}"></p>
+	            </div>
+	
+	            <form th:action="@{/eliminar}" method="POST">
+	                <label for="username">Nombre de usuario:</label>
+	                <input type="text" id="username" name="username" class="etivertical" required>
+	
+	                <label for="contrasenaIngresada">Contraseña:</label>
+	                <input type="password" id="contrasenaIngresada" name="contrasenaIngresada" class="etipass" required>
+	
+	                <button class="botonEliminar" type="submit" id="enviar">Eliminar usuario</button>
+	            </form>
+	        </div>
+	    </div>
+	</div>
 </div>
 
 <video class="video-container" id="video-bg" muted autoplay loop>

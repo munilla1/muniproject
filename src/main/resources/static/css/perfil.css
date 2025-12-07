@@ -1,19 +1,11 @@
 
 
 .contenedor-perfil {
-    display: flex;
-    flex-wrap: wrap;        /* 🔥 IMPORTANTE */
-    justify-content: center;
-    align-items: flex-start;
-    gap: 30px;              /* separación entre columnas */
-    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 2fr;  /* primera columna ocupa el doble */
+    gap: 30px;
     padding: 20px;
-}
-
-.productos-comprados,
-.formularios {
-    width: 100%;
-    max-width: 350px;       /* todas las tarjetas mismo ancho */
+    align-items: start;
 }
 
 .productos-comprados {
@@ -21,15 +13,19 @@
     padding: 20px 25px;               /* espacio interno */
     border-radius: 14px;              /* esquinas redondeadas */
     box-shadow: 0 12px 24px rgba(0,0,0,.25);  /* misma sombra */
-    width: 100%;
-    max-width: 350px;                 /* igual que los otros */
-    color: #000;                      /* texto visible sobre fondo claro */
+    color: #000;
+    width: 80%;
+    height: auto;
+    max-height: none;
+    overflow: visible;
 }
 
 .productos-comprados h1 {
-    font-size: 24px;
+	color: #f5750c;
+    font-size: 34px;
     margin-bottom: 10px;
     font-weight: 700;
+    border-bottom: 1px solid #000;
 }
 
 .productos-comprados h2 {
@@ -56,19 +52,15 @@
 
 /* 🎯 FORMULARIOS */
 .formularios-contenedor {
-    display: flex;
-    flex-direction: row; /* 🔥 los pone en fila */
-    gap: 30px;           /* separación entre los formularios */
-    justify-content: center; /* centrados en pantalla */
-    align-items: flex-start;
-    flex-wrap: wrap;     /* 🔥 importante para que en móvil bajen uno debajo del otro */
-    width: 100%;
+    display: grid;
+    gap: 10px;           /* separación entre los formularios */
+	grid-template-columns: 1fr 1fr;
     margin-top: 20px;
+    width: 100%;
 }
 
 .formularios {
     width: 100%;
-    max-width: 350px; /* mismo ancho para ambos */
 }
 
 .form {
@@ -76,7 +68,6 @@
     background: #fbf2e7;
     padding: 20px;
     border-radius: 8px;
-    width: 100%;
     box-sizing: border-box;
 }
 
@@ -84,6 +75,7 @@
     margin-bottom: 20px;
     font-size: 1.5em;
     color: #000000;
+    border-bottom: 1px solid #000;
 }
 
 .form label {
@@ -133,22 +125,7 @@ button.botonEliminar:hover {
 @media (max-width: 768px) {
 
     .contenedor-perfil {
-        flex-direction: column;     /* Se apilan */
-        gap: 20px;
-    }
-
-    .productos-comprados {
-        margin-left: 0;
-        max-width: 100%;
-    }
-
-    .formularios-contenedor {
-        margin-right: 0;
-        max-width: 100%;
-    }
-
-    .form {
-        width: 100%;
+        grid-template-columns: 1fr;  /* una columna */
     }
 }
 

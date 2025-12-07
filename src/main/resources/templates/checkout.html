@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Checkout Form</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" th:href="@{/css/checkout.css}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Formulario de pago</h1>
+
+    <!-- CSRF oculto -->
+    <input type="hidden" id="_csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <!-- ID del producto -->
+    <input type="hidden" id="productoId" th:value="${productoId}"/>
+
+    <label>Descripción:</label>
+    <input type="text" id="description" th:value="${descripcion}" placeholder="Introduce una descripción"/><br/>
+
+    <label>Moneda:</label>
+    <select id="currency">
+        <option th:each="currency : ${currencies}"
+                th:value="${currency.currencyCode}"
+                th:text="${currency.currencyCode}">
+        </option>
+    </select><br/>
+
+    <label>Email:</label>
+    <input type="email" id="email" placeholder="Introduce tu email" required/><br/>
+
+    <label>Información de la tarjeta:</label>
+    <div id="card-element"></div>
+    <div id="card-errors" role="alert" style="color: red;"></div><br/>
+
+    <button class="custom-button" id="pay-btn">Pagar</button>
+</div>
+
+<script>
+    // ✔ Stripe publica viene del backend
+    const stripe = Stripe('[[${stripePublicKey}]]');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
+    cardElement.mount('#card-element');
+
+    document.getElementById("pay-btn").addEventListener("click", async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const csrfToken = document.getElementById('_csrf').value;
+
+        // 🔹 Crear PaymentMethod
+        const { paymentMethod, error } = await stripe.createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+            billing_details: { email: email }
+        });
+
+        if (error) {
+            document.getElementById('card-errors').textContent = error.message;
+            return;
+        }
+
+        console.log("📤 Enviando pago con PaymentMethod:", paymentMethod.id);
+
+        // 🔹 Enviar datos al backend
+        const response = await fetch('/checkout', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken
+            },
+            body: JSON.stringify({
+                productoId: document.getElementById('productoId').value,
+                description: document.getElementById('description').value,
+                currency: document.getElementById('currency').value,
+                email: email,
+                paymentMethodId: paymentMethod.id
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            window.location.href = "/result?paymentId=" + result.paymentId;
+        } else {
+            alert("Error: " + result.message);
+        }
+    });
+</script>
+
+</body>
+</html>

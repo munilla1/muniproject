@@ -11,6 +11,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 
 import com.service.UserDetailsServiceImpl;
 
@@ -62,4 +64,10 @@ public class SecurityConfig {
                 .and()
                 .build();
     }
+    
+    @Bean
+    public SpringSessionBackedSessionRegistry sessionRegistry(FindByIndexNameSessionRepository<?> sessionRepository) {
+        return new SpringSessionBackedSessionRegistry<>(sessionRepository);
+    }
+
 }

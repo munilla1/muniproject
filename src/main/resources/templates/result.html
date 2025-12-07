@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/result.css}">
+    <title>Pago Exitoso</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>¡Compra realizada con éxito!</h1>
+        <p>Gracias por tu compra. Ahora puedes descargar tu producto.</p>
+
+        <div class="download-section" th:if="${productoId != null}">
+		    <a class="custom-button"
+		       th:href="@{/ver/{id}(id=${productoId})}">
+		        Ver Producto
+		    </a>
+		</div>
+        <!-- SCRIPT PARA REDIRECCIÓN -->
+        <script>
+            document.getElementById("downloadForm").addEventListener("submit", function () {
+
+                // Espera un poco para asegurar que la descarga inicia
+                setTimeout(() => {
+                    window.location.href = "/pagPrincipalJuego"; // 👈 redirección correcta
+                }, 1500);
+            });
+        </script>
+
+        <p>Si tienes algún problema, contáctanos.</p>
+
+    </div>
+
+</body>
+</html>

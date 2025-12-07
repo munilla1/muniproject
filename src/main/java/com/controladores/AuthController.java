@@ -72,15 +72,6 @@ public class AuthController {
         model.addAttribute("usuarioNombre", usuarioNombre);
         return "infografias";
     }
-    
-    @GetMapping("/perfil")
-    public String verPerfil(HttpSession session, Model model) {
-    	Object usuarioNombre = session.getAttribute("usuarioNombre");
-        model.addAttribute("usuarioNombre", usuarioNombre);
-        model.addAttribute("registroDTO", new RegistroDTO());
-        model.addAttribute("eliminarDTO", new EliminarDTO());
-        return "perfil";
-    }
 
     @PostMapping("/guardar")
     public String registerUser(@ModelAttribute RegistroDTO registroDTO, Model model) {
