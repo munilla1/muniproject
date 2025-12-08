@@ -5,6 +5,7 @@ public record PaymentRequest(
         String description,
         String currency,
         String stripeEmail,
-        String paymentMethodId
+        String paymentMethodId,
+        Long amount
 ) {
 }

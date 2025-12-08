@@ -1,5 +1,6 @@
 package com.controladores;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +64,8 @@ public class CheckoutController {
         Producto producto = productoRepository.findById(productoId)
             .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
 
+    	Long amount = producto.getPrecio().multiply(BigDecimal.valueOf(100)).longValue();
+
         String description = producto.getDescripcion();
         String currency = requestBody.getOrDefault("currency", "EUR").toString();
         String stripeEmail = requestBody.getOrDefault("email", "").toString();
@@ -79,7 +82,7 @@ public class CheckoutController {
 
         try {
             // 🔹 Procesar el pago con el producto dinámico
-            PaymentRequest request = new PaymentRequest(producto.getId(), description, currency, stripeEmail, paymentMethodId);
+            PaymentRequest request = new PaymentRequest(producto.getId(), description, currency, stripeEmail, paymentMethodId, amount);
             PaymentResponse response = paymentService.processPayment(request);
 
             session.setAttribute("paymentIntentId", response.paymentIntentId());

@@ -60,8 +60,8 @@ public class PaymentService {
         BigDecimal precioFijado = producto.getPrecio();
 
         PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
-            .setAmount(precioFijado.multiply(BigDecimal.valueOf(100)).longValue()) 
-            .setCurrency(currency)
+        	.setAmount(request.amount())
+        	.setCurrency(currency)
             .setPaymentMethod(request.paymentMethodId())
             .setConfirmationMethod(PaymentIntentCreateParams.ConfirmationMethod.AUTOMATIC)
             .setConfirm(true)
@@ -80,6 +80,7 @@ public class PaymentService {
 
         PaymentEntity paymentEntity = new PaymentEntity();
         paymentEntity.setProducto(producto);
+        paymentEntity.setAmount(BigDecimal.valueOf(request.amount()).divide(BigDecimal.valueOf(100)));
         paymentEntity.setCurrency(request.currency());
         paymentEntity.setDescription(request.description());
         paymentEntity.setStatus(paymentIntent.getStatus());
