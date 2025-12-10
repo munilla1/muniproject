@@ -39,6 +39,16 @@
         <div th:if="${errorDeAcceso != null}">
             <p style="color: red;" th:text="${errorDeAcceso}"></p>
         </div>
+        
+        <div th:if="${mensaje != null}" class="contenedor-mensaje">
+	        <img class="telefono" th:src="@{/imagenes/palomita-correcto.png}">
+	        <p style="color: green;" th:text="${mensaje}"></p>
+		</div>
+		
+		<div th:if="${mensajeRegistro != null}" class="contenedor-mensaje">
+	        <img class="telefono" th:src="@{/imagenes/palomita-correcto.png}">
+	        <p style="color: green;" th:text="${mensajeRegistro}"></p>
+		</div>
 
         <form th:action="@{/login}" method="POST">
         	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -53,13 +63,6 @@
 
             <button class="botonInicio" type="submit">Iniciar sesión</button>
         </form>
-    </div>
-</div>
-
-<div th:if="${mensaje != null}" class="contenedor-mensaje">
-    <div class="cont">
-        <img class="telefono" th:src="@{/imagenes/palomita-correcto.png}">
-        <h3 class="mensajeconf" th:text="${mensaje}"></h3>
     </div>
 </div>
 

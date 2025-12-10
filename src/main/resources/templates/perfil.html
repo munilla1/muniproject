@@ -54,7 +54,6 @@
         </ul>
     </div>
 	<div class="formularios-contenedor">
-	    <!-- Modificar Usuario -->
 	    <div class="formularios">
 	        <div class="form">
 	            <h1><b>Modificar Usuario</b></h1>
@@ -63,15 +62,26 @@
 	                <p th:text="${mensaje}"></p>
 	            </div>
 	
+	            <div th:if="${errorModificar != null}" class="alert alert-danger alert-pequeno">
+	                <p th:text="${errorModificar}"></p>
+	            </div>
+	
 	            <form th:action="@{/modificar}" method="POST">
+	
 	                <label for="username">Nuevo Nombre de Usuario:</label>
-	                <input type="text" id="username" name="username" class="etivertical" required>
+	                <input type="text" id="usernameModificar" name="username" class="etivertical" required>
 	
 	                <label for="correo">Nuevo Correo:</label>
-	                <input type="text" id="correo" name="correo" class="etivertical" required>
+	                <input type="email" id="correo" name="correo" class="etivertical" required>
 	
-	                <label for="password">Nueva Contraseña:</label>
-	                <input type="password" id="password" name="password" class="etipass" required>
+	                <label for="passwordActual">Contraseña actual:</label>
+	                <input type="password" id="passwordActual" name="passwordActual" class="etipass" required />
+	
+	                <label for="passwordNueva">Nueva contraseña:</label>
+	                <input type="password" id="passwordNueva" name="passwordNueva" class="etipass" required />
+	
+	                <label for="passwordNueva2">Repetir nueva contraseña:</label>
+	                <input type="password" id="passwordNueva2" name="passwordNueva2" class="etipass" required />
 	
 	                <button class="botonRegistrarse" type="submit" id="enviar">Actualizar</button>
 	            </form>
@@ -83,8 +93,8 @@
 	        <div class="form">
 	            <h1><b>Eliminar Usuario</b></h1>
 	
-	            <div th:if="${error != null}">
-	                <p style="color: red;" th:text="${error}"></p>
+	            <div th:if="${errorEliminar != null}">
+	                <p style="color: red;" th:text="${errorEliminar}"></p>
 	            </div>
 	
 	            <div th:if="${mensajeEliminacion != null}" class="alert alert-success alert-pequeno">
@@ -93,7 +103,7 @@
 	
 	            <form th:action="@{/eliminar}" method="POST">
 	                <label for="username">Nombre de usuario:</label>
-	                <input type="text" id="username" name="username" class="etivertical" required>
+	                <input type="text" id="usernameEliminar" name="username" class="etivertical" required>
 	
 	                <label for="contrasenaIngresada">Contraseña:</label>
 	                <input type="password" id="contrasenaIngresada" name="contrasenaIngresada" class="etipass" required>

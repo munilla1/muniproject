@@ -2,6 +2,7 @@ package com.controladores;
 
 import com.DTOs.RegistroDTO;
 import com.DTOs.EliminarDTO;
+import com.DTOs.ModificarDTO;
 import com.model.Usuario;
 import com.service.CustomUserDetails;
 import com.service.UsuarioService;
@@ -74,16 +75,16 @@ public class AuthController {
     }
 
     @PostMapping("/guardar")
-    public String registerUser(@ModelAttribute RegistroDTO registroDTO, Model model) {
+    public String registerUser(@ModelAttribute RegistroDTO registroDTO, RedirectAttributes redirectAttributes, Model model) {
         try {
             usuarioService.registrar(registroDTO);
-            model.addAttribute("mensajeRegistro", "Usuario registrado exitosamente.");
+            redirectAttributes.addFlashAttribute("mensajeRegistro", "Usuario registrado exitosamente.");
             model.addAttribute("registroDTO", new RegistroDTO()); // Limpiar formulario
-            return "registro-login";
+            return "redirect:/registro-login";
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("registroDTO", registroDTO);
-            return "registro-login";
+            return "registro";
         }
     }
     
@@ -101,27 +102,30 @@ public class AuthController {
 		  return "redirect:/pagPrincipalJuego"; 
 	  }
 	 
+	
+	  @PostMapping("/modificar")
+	  public String modificar(@ModelAttribute ModificarDTO modificarDTO,
+	                          @AuthenticationPrincipal CustomUserDetails userDetails,
+	                          RedirectAttributes redirectAttributes,
+	                          HttpSession session) {
+	
+	      try {
+	          usuarioService.modificar(userDetails.getUsername(), modificarDTO);
+	
+	          session.invalidate();
+	
+	          redirectAttributes.addFlashAttribute("mensaje",
+	              "Perfil actualizado correctamente. Por seguridad, inicia sesión de nuevo.");
+	
+	          return "redirect:/registro-login";
+	
+	      } catch (RuntimeException e) {
+	
+	          redirectAttributes.addFlashAttribute("errorModificar", e.getMessage());
+	          return "redirect:/perfil";
+	      }
+	  }
 
-    @PostMapping("/modificar")
-    public String modificar(@ModelAttribute RegistroDTO registroDTO,
-                            @AuthenticationPrincipal CustomUserDetails userDetails,
-                            RedirectAttributes redirectAttributes,
-                            HttpSession session) {
-        try {
-            usuarioService.modificar(userDetails.getUsername(), registroDTO);
-            
-            session.invalidate();
-
-            redirectAttributes.addFlashAttribute("mensaje",
-                    "Perfil actualizado correctamente. Por seguridad, inicia sesión de nuevo.");
-
-            return "redirect:/registro-login";
-
-        } catch (RuntimeException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/perfil";
-        }
-    }
     
     @PostMapping("/eliminar")
     public String eliminar(@ModelAttribute EliminarDTO eliminarDTO,
@@ -140,7 +144,7 @@ public class AuthController {
             return "redirect:/registro-login";
 
         } catch (RuntimeException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            redirectAttributes.addFlashAttribute("errorEliminar", e.getMessage());
             return "redirect:/perfil";
         }
     }

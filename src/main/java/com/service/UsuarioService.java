@@ -8,6 +8,7 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 
 import com.DTOs.RegistroDTO;
 import com.DTOs.EliminarDTO;
+import com.DTOs.ModificarDTO;
 import com.model.ERole;
 import com.model.Role;
 import com.model.Usuario;
@@ -58,17 +59,45 @@ public class UsuarioService {
       return usuarioRepository.save(u); 
     }
     
-    public void modificar(String usernameActual, RegistroDTO dto) {
+    @Transactional
+    public void modificar(String usernameActual, ModificarDTO dto) {
 
         Usuario usuario = usuarioRepository.findByUsername(usernameActual)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado."));
 
+        // Validar username si lo cambia
+        if (!usuario.getUsername().equals(dto.getUsername()) &&
+            usuarioRepository.existsByUsername(dto.getUsername())) {
+            throw new RuntimeException("El nombre de usuario ya existe.");
+        }
+
+        // Validar correo si lo cambia
+        if (!usuario.getCorreo().equals(dto.getCorreo()) &&
+            usuarioRepository.existsByCorreo(dto.getCorreo())) {
+            throw new RuntimeException("El correo ya está registrado.");
+        }
+
+        // Validar contraseña actual
+        if (!passwordEncoder.matches(dto.getPasswordActual(), usuario.getPassword())) {
+            throw new RuntimeException("La contraseña actual es incorrecta.");
+        }
+
+        // Validar coincidencia de nueva contraseña
+        if (!dto.getPasswordNueva().equals(dto.getPasswordNueva2())) {
+            throw new RuntimeException("Las nuevas contraseñas no coinciden.");
+        }
+
+        // Validar fortaleza de la nueva contraseña
+        if (!isPasswordStrong(dto.getPasswordNueva())) {
+            throw new RuntimeException("La nueva contraseña no cumple los requisitos.");
+        }
+
+        // Aplicar cambios
         usuario.setUsername(dto.getUsername());
         usuario.setCorreo(dto.getCorreo());
-        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
-
-        usuarioRepository.save(usuario);
+        usuario.setPassword(passwordEncoder.encode(dto.getPasswordNueva()));
     }
+
     
     public void eliminarUsuario(EliminarDTO dto, String usernameAutenticado) {
 
