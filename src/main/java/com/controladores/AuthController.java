@@ -196,6 +196,11 @@ public class AuthController {
         }
     }
     
+    @GetMapping("/forgot-password")
+    public String mostrarFormularioForgotPassword() {
+        return "forgot-password"; // tu página HTML con el form
+    }
+    
     @PostMapping("/forgot-password")
     public String forgotPassword(@RequestParam("correo") String correo,
                                  RedirectAttributes redirectAttributes) {
