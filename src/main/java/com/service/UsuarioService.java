@@ -168,7 +168,13 @@ public class UsuarioService {
         message.setSubject("Recuperación de contraseña");
         message.setText("Haz clic en el enlace para restaurar tu contraseña:\n" + enlace);
 
-        mailSender.send(message);
+        try {
+            mailSender.send(message);
+            System.out.println(">>> CORREO ENVIADO");
+        } catch (Exception e) {
+            System.out.println(">>> ERROR AL ENVIAR CORREO");
+            e.printStackTrace();
+        }
     }
     
     @Transactional
