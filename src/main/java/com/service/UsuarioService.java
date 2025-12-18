@@ -1,6 +1,12 @@
 package com.service;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,8 +16,10 @@ import com.DTOs.RegistroDTO;
 import com.DTOs.EliminarDTO;
 import com.DTOs.ModificarDTO;
 import com.model.ERole;
+import com.model.PasswordResetToken;
 import com.model.Role;
 import com.model.Usuario;
+import com.repository.PasswordResetTokenRepository;
 import com.repository.RoleRepository;
 import com.repository.UsuarioRepository;
 
@@ -21,6 +29,16 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    
+    @Value("${app.url.base}")
+    private String baseUrl;
+    
+    @Autowired
+    private PasswordResetTokenRepository tokenRepository;
+
+    @Autowired
+    private JavaMailSender mailSender;
+
 
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository,
@@ -125,4 +143,57 @@ public class UsuarioService {
     private boolean isPasswordStrong(String password) {
         return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
     }
+    
+    public void enviarCorreoRecuperacion(String correo) {
+    	
+    	System.out.println("baseUrl = " + baseUrl);
+
+        Usuario usuario = usuarioRepository.findByCorreo(correo)
+                .orElseThrow(() -> new RuntimeException("No existe una cuenta con ese correo"));
+
+        String token = UUID.randomUUID().toString();
+
+        PasswordResetToken resetToken = PasswordResetToken.builder()
+                .token(token)
+                .usuario(usuario)
+                .expiresAt(LocalDateTime.now().plusMinutes(30))
+                .build();
+
+        tokenRepository.save(resetToken);
+
+        String enlace = baseUrl + "/reset-password?token=" + token;
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(usuario.getCorreo());
+        message.setSubject("Recuperación de contraseña");
+        message.setText("Haz clic en el enlace para restaurar tu contraseña:\n" + enlace);
+
+        mailSender.send(message);
+    }
+    
+    @Transactional
+    public void restablecerContrasena(String token, String nuevaPassword) {
+
+        PasswordResetToken resetToken = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new RuntimeException("Token inválido"));
+
+        if (resetToken.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Token expirado");
+        }
+
+        // ✔ Validar fortaleza de la nueva contraseña
+        if (!isPasswordStrong(nuevaPassword)) {
+            throw new RuntimeException(
+                    "La contraseña debe tener al menos 8 caracteres, una mayúscula, " +
+                    "una minúscula, un número y un carácter especial."
+            );
+        }
+
+        Usuario usuario = resetToken.getUsuario();
+        usuario.setPassword(passwordEncoder.encode(nuevaPassword));
+
+        usuarioRepository.save(usuario);
+        tokenRepository.delete(resetToken);
+    }
+
 }

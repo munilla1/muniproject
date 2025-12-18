@@ -60,9 +60,23 @@
             <input type="password" id="passwordLogin" name="password" required>
 
 			<h5><a th:href="@{/registro}">Registrarse</a></h5>
+			<br>
+			<a href="#" id="toggle-forgot">Olvidé mi contraseña</a>
 
             <button class="botonInicio" type="submit">Iniciar sesión</button>
         </form>
+        
+		<div id="forgot-container" style="display: none; margin-top: 10px;">
+
+		    <h1><b>Recuperar contraseña</b></h1>
+		
+		    <form th:action="@{/forgot-password}" method="POST">
+		        <label>Correo electrónico:</label>
+		        <input type="email" name="correo" required>
+		
+		        <button class="recuperacion" type="submit">Enviar enlace de recuperación</button>
+		    </form>
+		</div>
     </div>
 </div>
 
@@ -91,6 +105,21 @@
 <div class="pie-pagina">
     <h3 class="pie">Esta es una web creada por A.Munilla. 2023-2024</h3>
 </div>
+
+<script>
+    document.getElementById("toggle-forgot").addEventListener("click", function(e) {
+        e.preventDefault(); // evita recargar o navegar
+
+        const panel = document.getElementById("forgot-container");
+
+        // alterna entre mostrar y ocultar
+        if (panel.style.display === "none") {
+            panel.style.display = "block";
+        } else {
+            panel.style.display = "none";
+        }
+    });
+</script>
 
 </body>
 </html>

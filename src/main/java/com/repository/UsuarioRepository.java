@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByUsername(String username);
+    Optional<Usuario> findByCorreo(String correo);
     long deleteByUsername(String username);
     boolean existsByCorreo(String correo);
     boolean existsByUsername(String username);

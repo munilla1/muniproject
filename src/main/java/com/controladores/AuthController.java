@@ -148,5 +148,66 @@ public class AuthController {
             return "redirect:/perfil";
         }
     }
+    
+    @GetMapping("/reset-password")
+    public String mostrarFormularioReset(@RequestParam("token") String tokenRaw, Model model) {
+
+        // Si accidentalmente llega "/reset-password?token=xxxx"
+        String token = tokenRaw;
+
+        if (tokenRaw.contains("token=")) {
+            token = tokenRaw.substring(tokenRaw.indexOf("token=") + 6);
+        }
+
+        System.out.println("TOKEN LIMPIO EN GET: " + token);
+
+        model.addAttribute("token", token);
+        return "reset-password";
+    }
+    
+    @PostMapping("/reset-password")
+    public String procesarReset(@RequestParam("token") String token,
+                                @RequestParam("password") String password,
+                                @RequestParam("password2") String password2,
+                                RedirectAttributes redirectAttributes) {
+
+    	System.out.println(">>> SE EJECUTÓ POST /reset-password");
+        System.out.println(">>> TOKEN RECIBIDO: [" + token + "]");
+        
+        if (token.contains("token=")) {
+            token = token.substring(token.indexOf("token=") + 6);
+        }
+        try {
+            if (!password.equals(password2)) {
+                redirectAttributes.addFlashAttribute("errorReset", "Las contraseñas no coinciden.");
+                return "redirect:/reset-password?token=" + token;
+            }
+
+            usuarioService.restablecerContrasena(token, password);
+
+            redirectAttributes.addFlashAttribute("mensajeExito",
+                    "Tu contraseña ha sido actualizada correctamente.");
+            return "redirect:/registro-login";
+
+        } catch (RuntimeException e) {
+        	e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorReset", e.getMessage());
+            return "redirect:/reset-password?token=" + token;
+        }
+    }
+    
+    @PostMapping("/forgot-password")
+    public String forgotPassword(@RequestParam("correo") String correo,
+                                 RedirectAttributes redirectAttributes) {
+    	System.out.println(">>> ENTRO EN forgot-password con correo: " + correo);
+        try {
+            usuarioService.enviarCorreoRecuperacion(correo);
+            redirectAttributes.addFlashAttribute("mensajeCorreo",
+                    "Se ha enviado un enlace de recuperación a tu correo.");
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("errorCorreo", e.getMessage());
+        }
+        return "redirect:/registro-login";
+    }
 
 }
