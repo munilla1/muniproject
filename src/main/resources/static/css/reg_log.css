@@ -56,8 +56,15 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Aria
   margin-top: -10px;
 }
 
-.forgot-container {
-	margin-top: 80px;
+.formularios-forgot{
+  width: min(450px, 62%);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;        /* por defecto móvil, 1 col */
+  align-items: stretch;
+  column-gap: 60px;
+  margin-bottom: 90px;
+  margin-top: 20px;
 }
 	
 .formularioReg{
