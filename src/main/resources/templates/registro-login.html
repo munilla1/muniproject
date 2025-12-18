@@ -61,7 +61,7 @@
 
 			<h5><a th:href="@{/registro}">Registrarse</a></h5>
 			<br>
-			<a href="#" id="toggle-forgot">Olvidé mi contraseña</a>
+			<a th:href="@{/forgot-password}">Olvidé mi contraseña</a>
 
             <button class="botonInicio" type="submit">Iniciar sesión</button>
         </form>
@@ -93,21 +93,6 @@
 <div class="pie-pagina">
     <h3 class="pie">Esta es una web creada por A.Munilla. 2023-2024</h3>
 </div>
-
-<script>
-    document.getElementById("toggle-forgot").addEventListener("click", function(e) {
-        e.preventDefault(); // evita recargar o navegar
-
-        const panel = document.getElementById("forgot-container");
-
-        // alterna entre mostrar y ocultar
-        if (panel.style.display === "none") {
-            panel.style.display = "block";
-        } else {
-            panel.style.display = "none";
-        }
-    });
-</script>
 
 </body>
 </html>
