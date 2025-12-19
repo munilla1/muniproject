@@ -35,10 +35,9 @@ public class UsuarioService {
     
     @Autowired
     private PasswordResetTokenRepository tokenRepository;
-
+    
     @Autowired
-    private JavaMailSender mailSender;
-
+    private EmailService emailService;
 
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository,
@@ -145,8 +144,8 @@ public class UsuarioService {
     }
     
     public void enviarCorreoRecuperacion(String correo) {
-    	
-    	System.out.println("baseUrl = " + baseUrl);
+
+        System.out.println("baseUrl = " + baseUrl);
 
         Usuario usuario = usuarioRepository.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("No existe una cuenta con ese correo"));
@@ -163,16 +162,24 @@ public class UsuarioService {
 
         String enlace = baseUrl + "/reset-password?token=" + token;
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(usuario.getCorreo());
-        message.setSubject("Recuperación de contraseña");
-        message.setText("Haz clic en el enlace para restaurar tu contraseña:\n" + enlace);
+        // contenido del email en HTML
+        String html = """
+            <p>Hola,</p>
+            <p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p>
+            <p><a href="%s">Restablecer contraseña</a></p>
+            <p>Si no solicitaste este cambio, ignora este mensaje.</p>
+        """.formatted(enlace);
 
         try {
-            mailSender.send(message);
-            System.out.println(">>> CORREO ENVIADO");
+            emailService.enviarCorreo(
+                    usuario.getCorreo(),
+                    "Recuperación de contraseña",
+                    html
+            );
+            System.out.println(">>> CORREO ENVIADO (BREVO API)");
+
         } catch (Exception e) {
-            System.out.println(">>> ERROR AL ENVIAR CORREO");
+            System.out.println(">>> ERROR AL ENVIAR CORREO (BREVO API)");
             e.printStackTrace();
         }
     }
