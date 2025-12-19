@@ -73,6 +73,7 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Aria
 
 @media (min-width: 768px){
   .formularios,
+  .formularios-forgot,
   .formularioReg{
     grid-template-columns: 1fr; /* 2 columnas para los formularios */
     grid-template-rows: auto auto;  /* dos filas: arriba forms, abajo imagen */
@@ -161,7 +162,7 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Aria
   transition: transform .08s ease, filter .2s ease;
 }
 .recuperacion{
-  width: 60%;
+  width: 70%;
   margin-top: 20px;
   padding: 5px 8px;
   font-weight: 600;
@@ -226,6 +227,7 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Aria
 
 @media (max-width: 600px) {
     .formularios,
+    .formularios-forgot,
     .formularioReg {
         width: 90% !important;  /* más ancha */
         max-width: 400px;       /* tamaño máximo cómodo */
