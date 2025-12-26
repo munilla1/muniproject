@@ -89,7 +89,7 @@ header.contenedor{
     display: block;
     max-width: 24.5%;
     height: auto;
-    margin-left: 180px;
+    margin-left: 120px;
 }
 
 /* El panel de la derecha */
@@ -104,10 +104,21 @@ header.contenedor{
     margin-bottom: 20px;
 }
 
+.sidebar p {
+	font-size: 14px;
+}
+
 /* Texto dentro del panel */
-.LCA {
+.Presentacion {
 	color: red;
     font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: .4rem;
+    font-family: sans-serif;
+}
+
+.LCA {
+	color: #ff8000;
     font-size: 1.15rem;
     margin-bottom: .4rem;
 }
@@ -251,8 +262,8 @@ header.contenedor{
 
     .sidebar {
         float: right;
-        width: 700px;
-        margin-right: 140px;
+        width: 850px;
+        margin-right: 80px;
         padding-bottom: 30px;
         margin-top: 30px;
         max-height: calc(100vh - 160px); /* scroll interno como en la imagen */
