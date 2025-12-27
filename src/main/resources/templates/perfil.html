@@ -70,7 +70,8 @@
                 No has comprado ningún producto aún.
             </li>
 
-            <li th:each="producto, iterStat : ${productosComprados}">
+            <li th:each="producto, iterStat : ${productosComprados}"
+            	th:if="${productosComprados != null}">
                 <span th:text="${iterStat.count}"></span>.
                 <span th:text="${producto.nombre}"></span>
                 -
