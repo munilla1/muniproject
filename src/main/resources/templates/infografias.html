@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,6 +20,9 @@
             <li><a th:href="@{/infografias}">Infografias</a></li>
             <li style="color:white;">|</li>
             <li><a th:href="@{/perfil}">Perfil</a></li>
+            <li sec:authorize="hasRole('ADMIN')">
+			    <a href="/admin/subir-producto">Subir producto</a>
+			</li>
         </ul>
     </nav>
     <div class="contcerrarsesion">
@@ -39,6 +43,40 @@
     </video>
     
     <div class="cartas">
+	    <div th:each="producto : ${productos}">
+			
+	        <!-- CARD -->
+	        <div class="card-container">
+	            <div class="card">
+	                <img th:src="${producto.rutaImagen}" alt="Imagen del producto">
+	
+	                <div class="card-content">
+	                    <h2 th:text="${producto.nombre}"></h2>
+	                    <p th:text="${producto.descripcion}"></p>
+	                </div>
+	            </div>
+	        </div>
+	
+	        <!-- BOTÓN COMPRA -->
+	        <form th:action="@{/checkout(productoId=${producto.id})}" method="get">
+	            <input type="hidden" name="productoId" th:value="${producto.id}">
+	            <button type="submit" class="custom-button">
+	                <span th:text="'Adquirir - ' + ${producto.precio} + '€'"></span>
+	            </button>
+	        </form>
+	        <form th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+			      th:action="@{/admin/productos/eliminar/{id}(id=${producto.id})}"
+			      method="post"
+			      onsubmit="return confirm('¿Seguro que quieres eliminar este producto?');">
+			
+			    <button type="submit" class="delete-button">
+			        Eliminar producto
+			    </button>
+			</form>
+	    </div>
+	</div>
+    
+    <!-- <div class="cartas">
 	    <div class="card-container">
 	        <div class="card">
 	            <img th:src="@{/imagenes/in_I.jpg}" alt="Imagen 1">
@@ -104,11 +142,7 @@
 	    	<input type="hidden" name="productoId" value="5">
 	        <button type="submit" class="custom-button">Adquirir - 7,99€</button>
 	    </form>
-	    <!-- <form th:action="@{/checkout(productoId=6)}" method="get">
-	    	<input type="hidden" name="productoId" value="6">
-	        <button type="submit" class="custom-button-pack">PACK AHORRO<br>🔻<br>Adquirir todo - 19,99€</button>
-	    </form> -->
-	</div>
+	</div> -->
     
 
     <div class="pie-pagina">

@@ -101,6 +101,27 @@
     transform: scale(1.02);
 }
 
+.delete-button {
+    background: #e53935;
+    border: none;
+    padding: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    margin: 20px auto;
+    width: 320px;
+}
+
+.delete-button:hover {
+	transform: scale(1.02);
+    background: #c62828;
+}
+
 @media (max-width: 768px) {
     .card {
         width: 90%;

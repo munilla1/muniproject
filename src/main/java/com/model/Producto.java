@@ -33,6 +33,7 @@ public class Producto {
     private BigDecimal precio;
     private boolean disponible;
     private String rutaArchivo;
+    private String rutaImagen;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id") // Relación con el usuario que publicó el producto

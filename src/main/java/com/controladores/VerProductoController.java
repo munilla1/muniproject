@@ -43,10 +43,14 @@ public class VerProductoController {
 
         Producto producto = productoRepository.findById(productoId).orElseThrow();
 
-        String fileName = producto.getRutaArchivo();
+        // 🔥 EXTRAER NOMBRE DEL BLOB
+        String blobUrl = producto.getRutaArchivo();
+        String fileName = blobUrl.substring(blobUrl.lastIndexOf("/") + 1);
+
         String extension = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
 
-        String sasUrl = azureBlobService.generarSasUrl(fileName);
+        // 🔥 CONTENEDOR CORRECTO
+        String sasUrl = azureBlobService.generarSasUrl("productos", fileName);
 
         model.addAttribute("sasUrl", sasUrl);
         model.addAttribute("producto", producto);
@@ -54,5 +58,6 @@ public class VerProductoController {
 
         return "verProducto";
     }
+
 
 }

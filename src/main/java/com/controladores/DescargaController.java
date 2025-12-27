@@ -51,17 +51,25 @@ public class DescargaController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        Producto producto = productoRepository.findById(productoId).get();
+        Producto producto = productoRepository.findById(productoId).orElseThrow();
 
-        byte[] datos = azureBlobService.downloadFile(producto.getRutaArchivo());
+        // 🔥 EXTRAER NOMBRE DEL BLOB DESDE LA URL
+        String blobUrl = producto.getRutaArchivo();
+        String fileName = blobUrl.substring(blobUrl.lastIndexOf("/") + 1);
+
+        // 🔥 DESCARGA CORRECTA
+        byte[] datos = azureBlobService.downloadFile("productos", fileName);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, 
-                "attachment; filename=" + producto.getNombre());
+        headers.add(
+            HttpHeaders.CONTENT_DISPOSITION,
+            "attachment; filename=\"" + producto.getNombre() + "\""
+        );
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(datos);
     }
+
 }

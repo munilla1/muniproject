@@ -23,6 +23,9 @@
             <li><a th:href="@{/infografias}">Infografias</a></li>
 			<li style="color:white;">|</li>
             <li><a th:href="@{/perfil}">Perfil</a></li>
+            <li sec:authorize="hasRole('ADMIN')">
+			    <a href="/admin/subir-producto">Subir producto</a>
+			</li>
         </ul>
     </nav>
     <div class="contcerrarsesion">

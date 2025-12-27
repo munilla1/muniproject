@@ -4,10 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
@@ -20,35 +22,67 @@ import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
 @Service
 public class AzureBlobService {
 
-    private final BlobContainerClient containerClient;
+    private final BlobServiceClient blobServiceClient;
 
-    @Autowired
     public AzureBlobService(
-            @Value("${azure.storage.connection-string}") String connectionString,
-            @Value("${azure.storage.container-name}") String containerName) {
-
-        BlobServiceClient serviceClient = 
-                new BlobServiceClientBuilder()
+            @Value("${azure.storage.connection-string}") String connectionString
+    ) {
+        this.blobServiceClient = new BlobServiceClientBuilder()
                 .connectionString(connectionString)
                 .buildClient();
-
-        containerClient = serviceClient.getBlobContainerClient(containerName);
     }
 
-    public void uploadFile(String fileName, InputStream fileStream, long size, String contentType) {
-        BlobClient blobClient = containerClient.getBlobClient(fileName);
-        blobClient.upload(fileStream, size, true);
-        blobClient.setHttpHeaders(new BlobHttpHeaders().setContentType(contentType));
+    /**
+     * Sube un archivo a un contenedor concreto (imagenes / productos)
+     */
+    public String subirArchivo(MultipartFile file, String containerName) throws IOException {
+
+        BlobContainerClient containerClient =
+                blobServiceClient.getBlobContainerClient(containerName);
+
+        // Crear contenedor si no existe (robusto)
+        if (!containerClient.exists()) {
+            containerClient.create();
+        }
+
+        String nombreArchivo =
+                UUID.randomUUID() + "-" + file.getOriginalFilename();
+
+        BlobClient blobClient = containerClient.getBlobClient(nombreArchivo);
+
+        BlobHttpHeaders headers = new BlobHttpHeaders()
+                .setContentType(file.getContentType());
+
+        blobClient.upload(file.getInputStream(), file.getSize(), true);
+        blobClient.setHttpHeaders(headers);
+
+        return blobClient.getBlobUrl();
     }
 
-    public byte[] downloadFile(String fileName) throws IOException {
+    /**
+     * Descarga directa (si el contenedor es privado)
+     */
+    public byte[] downloadFile(String containerName, String fileName) throws IOException {
+
+        BlobContainerClient containerClient =
+                blobServiceClient.getBlobContainerClient(containerName);
+
         BlobClient blobClient = containerClient.getBlobClient(fileName);
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         blobClient.download(outputStream);
+
         return outputStream.toByteArray();
     }
-    
-    public String generarSasUrl(String fileName) {
+
+    /**
+     * Genera URL SAS temporal (para productos privados)
+     */
+    public String generarSasUrl(String containerName, String fileName) {
+
+        BlobContainerClient containerClient =
+                blobServiceClient.getBlobContainerClient(containerName);
+
         BlobClient blobClient = containerClient.getBlobClient(fileName);
 
         BlobSasPermission permission = new BlobSasPermission()
@@ -63,5 +97,25 @@ public class AzureBlobService {
 
         return blobClient.getBlobUrl() + "?" + sasToken;
     }
+    
+    public void eliminarArchivo(String containerName, String fileName) {
+
+        BlobContainerClient containerClient =
+                blobServiceClient.getBlobContainerClient(containerName);
+
+        BlobClient blobClient = containerClient.getBlobClient(fileName);
+
+        if (blobClient.exists()) {
+            blobClient.delete();
+        }
+    }
+
+    public void eliminarBlobDesdeUrl(String blobUrl, String containerName) {
+        if (blobUrl == null) return;
+
+        String fileName = blobUrl.substring(blobUrl.lastIndexOf("/") + 1);
+        eliminarArchivo(containerName, fileName);
+    }
 
 }
+

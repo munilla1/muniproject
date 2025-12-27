@@ -4,6 +4,7 @@ import com.DTOs.RegistroDTO;
 import com.DTOs.EliminarDTO;
 import com.DTOs.ModificarDTO;
 import com.model.Usuario;
+import com.repository.ProductoRepository;
 import com.service.CustomUserDetails;
 import com.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
@@ -27,10 +28,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AuthController {
 
     private final UsuarioService usuarioService;
+    private final ProductoRepository productoRepository;
 
     @Autowired
-    public AuthController(UsuarioService usuarioService) {
+    public AuthController(UsuarioService usuarioService, ProductoRepository productoRepository) {
         this.usuarioService = usuarioService;
+        this.productoRepository = productoRepository;
     }
 
     @GetMapping("/")
@@ -71,6 +74,8 @@ public class AuthController {
     public String verInfografias(HttpSession session, Model model) {
     	Object usuarioNombre = session.getAttribute("usuarioNombre");
         model.addAttribute("usuarioNombre", usuarioNombre);
+        model.addAttribute("productos", productoRepository.findAll());
+
         return "infografias";
     }
 
@@ -213,6 +218,11 @@ public class AuthController {
             redirectAttributes.addFlashAttribute("errorCorreo", e.getMessage());
         }
         return "redirect:/registro-login";
+    }
+    
+    @GetMapping("/admin/subir-producto")
+    public String subirProducto() {
+        return "admin/subir-producto";
     }
 
 }

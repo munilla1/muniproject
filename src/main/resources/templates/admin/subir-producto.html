@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Destruction app</title>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/pp.css}">
+	<link rel="stylesheet" th:href="@{/css/cssgrid.css}">
+	<link rel="stylesheet" th:href="@{/css/subirProducto.css}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<header class="contenedor">
+    <img th:src="@{/imagenes/mus.png}" alt="Logo" class="logo">
+    <nav class="menu">
+        <ul>
+            <li><a th:href="@{/pagPrincipalJuego}">Inicio</a></li>
+            <li><a th:href="@{/infografias}">Infografias</a></li>
+            <li style="color:white;">|</li>
+            <li><a th:href="@{/perfil}">Perfil</a></li>
+            <li sec:authorize="hasRole('ADMIN')">
+			    <a href="/admin/subir-producto">Subir producto</a>
+			</li>
+        </ul>
+    </nav>
+    <div class="contcerrarsesion">
+        <div class="contMensaje">
+            <p>Usuario: <span class="usu" th:text="${usuarioNombre}">Nombre de usuario</span></p>
+        </div>
+        <div class="contDdboton">
+            <form th:action="@{/logout}" method="POST">
+                <input type="hidden"/>
+                <button type="submit" id="ddboton2" class="btn btn-primary">Cerrar sesion</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<video class="video-container" id="video-bg" muted autoplay loop>
+    <source th:src="@{/imagenes/espacio.mp4}" type="video/mp4">
+</video>
+
+<div class="panel-wrapper">
+	<form th:action="@{/admin/productos/crear}"
+	      method="post"
+	      enctype="multipart/form-data"
+	      class="panel-form">
+	
+	    <h2>Crear Producto</h2>
+	    
+	    <p th:if="${param.errorSize}" class="error">
+		    El archivo supera el tamaño máximo permitido.
+		</p>
+	
+	    <label>Nombre del producto</label>
+	    <input type="text" name="nombre" placeholder="Nombre" required>
+	
+	    <label>Descripción</label>
+	    <textarea name="descripcion" required></textarea>
+	
+	    <label>Precio (€)</label>
+	    <input type="number" name="precio" step="0.01" required>
+	
+	    <label>Archivo del producto (PDF)</label>
+	    <input type="file" name="archivoProducto" required>
+	
+	    <label>Imagen del producto (card)</label>
+	    <input type="file" name="imagenProducto" accept="image/*" required>
+	
+	    <button type="submit">Crear producto</button>
+	</form>
+</div>
+
+	<div class="pie-pagina">
+        <h3 class="pie">Esta es una web creada por A.Munilla. 2023-2024</h3>
+    </div>
+    
+</body>
+</html>
+
+
+
