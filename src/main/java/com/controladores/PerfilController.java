@@ -1,6 +1,7 @@
 package com.controladores;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -27,15 +28,26 @@ public class PerfilController {
     }
 
     @GetMapping
-    public String mostrarPerfil(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+    public String mostrarPerfil(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            Model model) {
+
+        if (userDetails == null) {
+            return "redirect:/login";
+        }
 
         Usuario usuario = userDetails.getUsuario();
 
         List<PaymentEntity> pagos = paymentRepository
                 .findByUsuarioIdAndStatus(usuario.getId(), "succeeded");
 
+        if (pagos == null) {
+            pagos = List.of();
+        }
+
         List<Producto> productosComprados = pagos.stream()
                 .map(PaymentEntity::getProducto)
+                .filter(Objects::nonNull)
                 .distinct()
                 .toList();
 
@@ -47,3 +59,4 @@ public class PerfilController {
         return "perfil";
     }
 }
+

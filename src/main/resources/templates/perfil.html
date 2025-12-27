@@ -65,20 +65,21 @@
 
         <ul id="productosComprados">
 
-            <li th:if="${#lists.isEmpty(productosComprados)}"
-                class="empty-message">
-                No has comprado ningún producto aún.
-            </li>
+		    <li th:if="${productosComprados == null or #lists.isEmpty(productosComprados)}"
+		        class="empty-message">
+		        No has comprado ningún producto aún.
+		    </li>
+		
+		    <li th:each="producto, iterStat : ${productosComprados}"
+		        th:if="${productosComprados != null}">
+		        <span th:text="${iterStat.count}"></span>.
+		        <span th:text="${producto.nombre}"></span>
+		        -
+		        <a th:href="@{/ver/{id}(id=${producto.id})}">Ver</a>
+		    </li>
+		
+		</ul>
 
-            <li th:each="producto, iterStat : ${productosComprados}"
-            	th:if="${productosComprados != null}">
-                <span th:text="${iterStat.count}"></span>.
-                <span th:text="${producto.nombre}"></span>
-                -
-                <a th:href="@{/ver/{id}(id=${producto.id})}">Ver</a>
-            </li>
-
-        </ul>
     </div>
 
     <div class="formularios-contenedor">
