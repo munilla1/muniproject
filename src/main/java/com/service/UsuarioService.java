@@ -148,6 +148,10 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("No existe una cuenta con ese correo"));
 
+        // 🔥 BORRAR TOKEN ANTERIOR (CLAVE)
+        tokenRepository.findByUsuario(usuario)
+        .ifPresent(tokenRepository::delete);
+        
         String token = UUID.randomUUID().toString();
 
         PasswordResetToken resetToken = PasswordResetToken.builder()
